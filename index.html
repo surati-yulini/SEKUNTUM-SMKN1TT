@@ -3,1006 +3,1012 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SI-PATUH - SMK Negeri 1 Tebing Tinggi</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                            800: '#0c4a6e',
-                            900: '#0f172a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>SEKUNTUM - SMKN 1 Tebing Tinggi</title>
+    <!-- Library SheetJS untuk Ekspor Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        body { 
-        margin: 0;
-        min-height: 100vh;
-        background-color: #1b8a44;
-        background-image: 
-            radial-gradient(at 0% 0%, #0042da 0px, transparent 50%),
-            radial-gradient(at 100% 100%, #ffd700 0px, transparent 40%),
-            radial-gradient(at 50% 50%, #1b8a44 0px, transparent 60%);
-        background-attachment: fixed;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: #ffffff;
+        :root {
+            --card-bg: #ffffff;
+            --primary-color: #0b6285;       
+            --primary-hover: #074761;
+            --accent-color: #107259;        
+            --accent-hover: #0a4f3d;
+            --gold-color: #f1c40f;          
+            --text-color: #2c3e50;
+            --border-radius: 12px;
         }
-        @media print {
-            .no-print { display: none !important; }
-            .print-only { display: block !important; }
+
+        /* Gradasi Latar Belakang Persis Seperti Tampilan SI-PATUH */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #093450 0%, #0d5c58 35%, #187a55 65%, #92a316 100%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
         }
-        .print-only { display: none; }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+        }
+
+        /* Top Header Navbar Style */
+        .top-brand {
+            display: flex;
+            align-items: center;
+            background: #0d2942;
+            padding: 14px 22px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-left-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Kotak Ikon Toga Topi Graduasi */
+        .brand-icon-box {
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .brand-icon-box svg {
+            width: 26px;
+            height: 26px;
+            fill: none;
+            stroke: #38bdf8;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .brand-text-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-title-row h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-badge {
+            background-color: #0284c7;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .brand-subtitle {
+            margin: 3px 0 0 0;
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* Header / Banner Styling */
+        .header-banner {
+            background: linear-gradient(135deg, #0b5072 0%, #086173 50%, #0d6b52 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-text {
+            max-width: 680px;
+            z-index: 2;
+        }
+
+        .banner-pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .header-banner h2 {
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .header-banner p {
+            margin: 0;
+            font-size: 13px;
+            color: #e0f2fe;
+            line-height: 1.5;
+        }
+
+        .banner-logo-box {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            z-index: 2;
+        }
+
+        .banner-logo-box img {
+            width: 85px;
+            height: auto;
+        }
+
+        /* Navigasi Grid Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .menu-btn {
+            background-color: #ffffff;
+            border: 2px solid #0d6b52;
+            color: #0d6b52;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .menu-btn:hover, .menu-btn.active {
+            background-color: #0d6b52;
+            color: white;
+            border-color: #0d6b52;
+            box-shadow: 0 4px 12px rgba(13, 107, 82, 0.25);
+        }
+
+        .content-section {
+            display: none;
+            background-color: #f7fcfa;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #d1e7dd;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #d1e7dd;
+            padding-bottom: 10px;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            color: #0b5072;
+            font-size: 17px;
+        }
+
+        .btn-download {
+            background-color: #107259;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background-color: #0a4f3d;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-color);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b8d8ca;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #0d6b52;
+            box-shadow: 0 0 0 3px rgba(13, 107, 82, 0.15);
+        }
+
+        .btn-submit {
+            background-color: #0d6b52;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #094a38;
+        }
+
+        /* Sub Tab Style */
+        .sub-tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sub-tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: #d1e7dd;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #0b5072;
+            font-size: 13px;
+        }
+
+        .sub-tab-btn.active {
+            background: #0b5072;
+            color: white;
+        }
+
+        /* Card Persyaratan Layout */
+        .syarat-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-left: 5px solid #0b5072;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .syarat-card h3 {
+            margin-top: 0;
+            color: #0b5072;
+            font-size: 15px;
+        }
+
+        .syarat-card ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Table Track & Admin */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0b5072;
+            color: white;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+        }
+        .bg-pending { background-color: #e67e22; }
+        .bg-proses { background-color: #3498db; }
+        .bg-siap { background-color: #9b59b6; }
+        .bg-selesai { background-color: #2ecc71; }
     </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+<body>
 
-    <div id="root" class="flex-grow flex flex-col"></div>
+<div class="container">
+    <!-- Top Header Navbar Brand -->
+    <div class="top-brand">
+        <div class="brand-left-group">
+            <div class="brand-icon-box">
+                <!-- SVG Icon Topi Toga Graduasi -->
+                <svg viewBox="0 0 24 24">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+            </div>
+            <div class="brand-text-box">
+                <div class="brand-title-row">
+                    <h1>SEKUNTUM</h1>
+                    <span class="brand-badge">SMK Negeri 1 Tebing Tinggi</span>
+                </div>
+                <p class="brand-subtitle">Sistem Elektronik Kelengkapan Urusan & Navigasi Tracking bagi Murid/Alumni/Masyarakat</p>
+            </div>
+        </div>
+    </div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
+    <!-- Header Banner Aplikasi -->
+    <div class="header-banner">
+        <div class="banner-text">
+            <div class="banner-pill">Layanan Bebas Antre & Transparan</div>
+            <h2>Selamat Datang Di SEKUNTUM SMK Negeri 1 Tebing Tinggi</h2>
+            <p>Permohonan legalisir, pengambilan ijazah, surat keterangan, atau informasi status berkas kini lebih cepat, mudah, dan dapat dipantau langsung dari HP Anda.</p>
+        </div>
+        <div class="banner-logo-box">
+            <img src="https://lh3.googleusercontent.com/d/1kK1c7S6bhQ9xAZrd1wpZ8o0o9EiSCrmN" alt="Logo SMKN 1">
+        </div>
+    </div>
 
-        // Data Awal Contoh Permohonan untuk Simulasi
-        const INITIAL_REQUESTS = [
-            {
-                id: "REQ-2026-001",
-                nama: "Budi Santoso",
-                tempatLahir: "Tebing Tinggi",
-                tanggalLahir: "12 Mei 2005",
-                nisn: "0054321890",
-                noWa: "081265439871",
-                kategori: "Alumni",
-                tahunLulus: "2023",
-                jurusan: "Teknik Otomotif (TO)",
-                jenisLayanan: "Legalisir Ijazah & Transkrip Nilai",
-                jumlahLembar: 5,
-                keperluan: "Melamar Pekerjaan BUMN",
-                tanggal: "2026-09-15 08:30",
-                status: "Siap Diambil",
-                catatan: "Dokumen sudah dilegalisir dan dicap basah oleh Kepala Sekolah. Silakan bawa dokumen asli saat pengambilan.",
-                petugas: "Suratih, S.Pd. (TU)"
-            },
-            {
-                id: "REQ-2026-002",
-                nama: "Siti Rahmawati",
-                tempatLahir: "Selatpanjang",
-                tanggalLahir: "20 Agustus 2006",
-                nisn: "0061239874",
-                noWa: "085270112233",
-                kategori: "Orang Tua/Wali",
-                tahunLulus: "2026",
-                jurusan: "Teknik Jaringan Komputer dan Telekomunikasi",
-                jenisLayanan: "Pengambilan Ijazah Asli",
-                jumlahLembar: 1,
-                keperluan: "Pendaftaran Kuliah",
-                tanggal: "2026-09-16 09:15",
-                status: "Diproses",
-                catatan: "Sedang diproses verifikasi bebas pustaka dan bebas SPP.",
-                petugas: "Suratih, S.Pd. (TU)"
-            },
-            {
-                id: "REQ-2026-003",
-                nama: "Rian Hidayat",
-                tempatLahir: "Pekanbaru",
-                tanggalLahir: "10 Maret 2007",
-                nisn: "0078901234",
-                noWa: "081398761234",
-                kategori: "Siswa Aktif",
-                tahunLulus: "-",
-                jurusan: "Teknik Jaringan Komputer dan Telekomunikasi",
-                jenisLayanan: "Surat Pindah / Mutasi Keluar",
-                jumlahLembar: 1,
-                keperluan: "Pindah Domisili Orang Tua ke Medan",
-                tanggal: "2026-09-16 10:00",
-                status: "Pending",
-                catatan: "Permohonan baru diterima, menunggu verifikasi berkas kelengkapan.",
-                petugas: "Staf Administrasi TU"
-            },
-            {
-                id: "REQ-2026-004",
-                nama: "Dewi Kartika",
-                tempatLahir: "Tebing Tinggi",
-                tanggalLahir: "05 Oktober 2003",
-                nisn: "0034567891",
-                noWa: "082166554433",
-                kategori: "Alumni",
-                tahunLulus: "2021",
-                jurusan: "Akuntansi & Keuangan Lembaga",
-                jenisLayanan: "Surat Keterangan Kehilangan Ijazah (SKPI)",
-                jumlahLembar: 2,
-                keperluan: "Syarat CPNS",
-                tanggal: "2026-09-14 14:20",
-                status: "Selesai",
-                catatan: "Dokumen telah diserahkan pada tanggal 15 September 2026.",
-                petugas: "Suratih, S.Pd. (TU)"
-            }
-        ];
+    <!-- Tombol Menu Utama Navigation -->
+    <div class="menu-grid">
+        <button class="menu-btn active" onclick="openMenu('layanan-murid')">1. Layanan Murid</button>
+        <button class="menu-btn" onclick="openMenu('layanan-alumni')">2. Layanan Alumni</button>
+        <button class="menu-btn" onclick="openMenu('layanan-pendidik')">3. Layanan Guru & Tendik</button>
+        <button class="menu-btn" onclick="openMenu('ajukan-layanan')">4. Ajukan Informasi Status Layanan</button>
+        <button class="menu-btn" onclick="openMenu('lacak-berkas')">5. Lacak Status Berkas</button>
+        <button class="menu-btn" onclick="openMenu('suara-kita')">6. Suara Kita (Saran/Keluhan)</button>
+    </div>
 
-        function App() {
-            const [view, setView] = useState('public');
-            const [isAuthenticated, setIsAuthenticated] = useState(false);
-            const [showLoginModal, setShowLoginModal] = useState(false);
-            
-            const [requests, setRequests] = useState(() => {
-                const saved = localStorage.getItem('sipatuh_requests');
-                return saved ? JSON.parse(saved) : INITIAL_REQUESTS;
+    <!-- MENU 1: Layanan Murid -->
+    <div id="layanan-murid" class="content-section active">
+        <div class="section-header">
+            <h2>Persyaratan Layanan Persuratan Murid</h2>
+        </div>
+        
+        <div class="syarat-card">
+            <h3>1. Surat Keterangan Aktif Belajar</h3>
+            <ul>
+                <li>Membawa Kartu Pelajar SMK Negeri 1 Tebing Tinggi yang masih berlaku.</li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>2. Surat Keterangan Kelakuan Baik</h3>
+            <ul>
+                <li>Membawa Kartu Pelajar SMK Negeri 1 Tebing Tinggi.</li>
+                <li>Telah berkoordinasi terlebih dahulu dengan Wali Kelas.</li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>3. Surat Keterangan Pindah / Mutasi Keluar</h3>
+            <ul>
+                <li>Surat Rekomendasi dari Sekolah Tujuan.</li>
+                <li>Rapor Asli.</li>
+                <li>Bukti Bebas Pinjaman Perpustakaan.</li>
+                <li>Bukti Lunas Administrasi Program Keahlian.</li>
+                <li>Fotocopy KTP Orang Tua / Wali.</li>
+                <li>Meterai 10.000 (1 lembar).</li>
+                <li>Pasfoto Berwarna ukuran 3x4 (1 lembar).</li>
+                <li>Membawa Kartu Keluarga (KK) Asli untuk keperluan pengecekan keaslian dokumen dan bukti membawa orang tua kandung / yang tertera di KK.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MENU 2: Layanan Alumni -->
+    <div id="layanan-alumni" class="content-section">
+        <div class="section-header">
+            <h2>Persyaratan Layanan Persuratan Alumni</h2>
+        </div>
+
+        <div class="syarat-card">
+            <h3>1. Syarat Pengambilan Ijazah</h3>
+            <ul>
+                <li>Bukti Bebas Perpustakaan yang diambil di Ruang Perpustakaan SMKN 1 Tebing Tinggi.</li>
+                <li>Bukti Pengisian Penelusuran Tamatan yang diambil di Ruang Humas SMKN 1 Tebing Tinggi.</li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>2. Syarat Legalisir Ijazah / Transkrip Nilai Asli</h3>
+            <ul>
+                <li>Membawa Ijazah / Transkrip Nilai Asli.</li>
+                <li>Maksimal dokumen yang dilegalisir adalah 5 rangkap.</li>
+                <li><em>Khusus keperluan Abdi Negara (Polisi/TNI/Polri): Jumlah dokumen legalisir dapat menyesuaikan kebutuhan.</em></li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>3. Syarat Surat Keterangan Alumni</h3>
+            <ul>
+                <li>Fotocopy Ijazah SMK Negeri 1 Tebing Tinggi.</li>
+                <li>Fotocopy KTP.</li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>4. Syarat Surat Keterangan Kesalahan Penulisan Ijazah</h3>
+            <ul>
+                <li>Fotocopy Ijazah Asli SMK Negeri 1 Tebing Tinggi.</li>
+                <li>Fotocopy KTP.</li>
+                <li>Fotocopy Kartu Keluarga (KK).</li>
+                <li>Fotocopy Ijazah SMP/MTs ATAU Surat Keterangan Kesalahan Penulisan Ijazah dari SMP/MTs sebagai acuan pembuatan surat.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MENU 3: Layanan Guru & Tendik -->
+    <div id="layanan-pendidik" class="content-section">
+        <div class="section-header">
+            <h2>Persyaratan Layanan Persuratan Guru & Tendik</h2>
+        </div>
+
+        <p><small>*Persyaratan di bawah ini guna keperluan diunggah (upload) ke dalam aplikasi presensi kehadiran harian.</small></p>
+
+        <div class="syarat-card">
+            <h3>1. Surat Keterangan Sakit</h3>
+            <ul>
+                <li>Melampirkan Surat Keterangan Sakit Asli dari Rumah Sakit / Dokter.</li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>2. Surat Keterangan Cuti Melahirkan</h3>
+            <ul>
+                <li>Melampirkan Surat Keterangan Kelahiran dari Klinik / Bidan / Rumah Sakit.</li>
+            </ul>
+        </div>
+
+        <div class="syarat-card">
+            <h3>3. Surat Keterangan Perjalanan Dinas</h3>
+            <ul>
+                <li>Melampirkan Surat Tugas / Perjalanan Dinas resmi.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MENU 4: Ajukan Informasi Status Layanan -->
+    <div id="ajukan-layanan" class="content-section">
+        <div class="section-header">
+            <h2>Form Permohonan Informasi Status Layanan</h2>
+        </div>
+
+        <form onsubmit="submitPermohonan(event)">
+            <div class="form-group">
+                <label>Nama Lengkap:</label>
+                <input type="text" id="req-nama" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Tempat Lahir:</label>
+                    <input type="text" id="req-tempat-lahir" placeholder="Contoh: Tebing Tinggi" required>
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Tanggal Lahir:</label>
+                    <input type="date" id="req-tgl-lahir" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nomor HP / WhatsApp Aktif:</label>
+                <input type="tel" id="req-hp" placeholder="Contoh: 081234567890" required>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <div class="form-group" style="flex:1;">
+                    <label>Status Pemohon:</label>
+                    <select id="req-status-user" required>
+                        <option value="Murid">Murid</option>
+                        <option value="Alumni">Alumni</option>
+                        <option value="Guru">Guru</option>
+                        <option value="Tendik">Tendik</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Tahun Tamatan (Isi 0 jika tidak diperlukan):</label>
+                    <input type="number" id="req-tahun-tamat" value="0" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Jenis Berkas / Surat yang Diajukan:</label>
+                <select id="req-jenis-berkas" onchange="toggleSuratLainnya()" required>
+                    <!-- Kategori Murid -->
+                    <optgroup label="Layanan Murid">
+                        <option value="Surat Keterangan Aktif Belajar">Surat Keterangan Aktif Belajar</option>
+                        <option value="Surat Keterangan Kelakuan Baik">Surat Keterangan Kelakuan Baik</option>
+                        <option value="Surat Keterangan Pindah/Mutasi Keluar">Surat Keterangan Pindah/Mutasi Keluar</option>
+                    </optgroup>
+                    <!-- Kategori Alumni -->
+                    <optgroup label="Layanan Alumni">
+                        <option value="Pengambilan Ijazah">Pengambilan Ijazah</option>
+                        <option value="Legalisir Ijazah/Transkrip Nilai">Legalisir Ijazah/Transkrip Nilai</option>
+                        <option value="Surat Keterangan Alumni">Surat Keterangan Alumni</option>
+                        <option value="Surat Keterangan Kesalahan Penulisan Ijazah">Surat Keterangan Kesalahan Penulisan Ijazah</option>
+                    </optgroup>
+                    <!-- Kategori Guru/Tendik -->
+                    <optgroup label="Layanan Guru & Tendik">
+                        <option value="Surat Keterangan Sakit">Surat Keterangan Sakit</option>
+                        <option value="Surat Keterangan Cuti Melahirkan">Surat Keterangan Cuti Melahirkan</option>
+                        <option value="Surat Keterangan Perjalanan Dinas">Surat Keterangan Perjalanan Dinas</option>
+                    </optgroup>
+                    <!-- Kategori Lainnya -->
+                    <optgroup label="Lainnya">
+                        <option value="Lainnya">Lainnya (Ketik Manual)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <!-- Input Teks Tambahan untuk Surat Lainnya (Sembunyi secara default) -->
+            <div class="form-group" id="wrapper_surat_lainnya" style="display: none;">
+                <label for="req-jenis-berkas-lainnya">Tuliskan Jenis Surat Yang Dibutuhkan:</label>
+                <input 
+                    type="text" 
+                    id="req-jenis-berkas-lainnya" 
+                    placeholder="Contoh: Surat Rekomendasi Beasiswa"
+                >
+            </div>
+
+            <button type="submit" class="btn-submit">Kirim Permohonan Informasi Status Layanan</button>
+        </form>
+    </div>
+
+    <!-- MENU 5: Lacak Status Berkas (Pribadi & Admin) -->
+    <div id="lacak-berkas" class="content-section">
+        <!-- Sub-menu Navigasi Pengguna & Admin -->
+        <div class="sub-tab-container">
+            <button class="sub-tab-btn active" id="btn-sub-user" onclick="switchSubTab('user')">Lacak Berkas Saya (Pengguna)</button>
+            <button class="sub-tab-btn" id="btn-sub-admin" onclick="switchSubTab('admin')">Portal Admin TU</button>
+        </div>
+
+        <!-- SUB TAB 1: PENGGUNA (PRIBADI) -->
+        <div id="sub-user-view">
+            <div class="section-header">
+                <h2>Cek Status Berkas Anda</h2>
+            </div>
+            <div class="form-group">
+                <label>Masukkan ID Resi ATAU Nomor HP Saat Mengajukan:</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="search-keyword" placeholder="Contoh: REQ-001 atau 081234567890">
+                    <button onclick="searchStatusUser()" style="background:#0b5072; color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; font-weight:bold;">Cari</button>
+                </div>
+            </div>
+
+            <!-- Hasil Pencarian Pengguna -->
+            <div id="user-result-box" style="display:none; margin-top:20px; padding:15px; background:#fff; border-radius:8px; border:1px solid #ddd;">
+                <h3 style="margin-top:0; color:#0b5072;">Hasil Pencarian Status Berkas</h3>
+                <div id="user-result-content"></div>
+            </div>
+        </div>
+
+        <!-- SUB TAB 2: PORTAL ADMIN TU -->
+        <div id="sub-admin-view" style="display:none;">
+            <!-- Box Form Login Admin -->
+            <div id="admin-login-box" style="background:#eaf5ee; padding: 20px; border-radius: 8px; margin-bottom:20px; border:1px solid #0d6b52;">
+                <h3 style="margin-top:0; color:#0d6b52;">Login Khusus Admin TU</h3>
+                <p style="font-size:12px; margin-bottom:15px;">Hanya Administrator yang dapat merubah status berkas dan mengunduh rekap data.</p>
+                <div class="form-group">
+                    <label>Username Admin:</label>
+                    <input type="text" id="admin-user" placeholder="Masukkan Username">
+                </div>
+                <div class="form-group">
+                    <label>Password Admin:</label>
+                    <input type="password" id="admin-pass" placeholder="Masukkan Password">
+                </div>
+                <button onclick="loginAdmin()" class="btn-submit">Masuk ke Panel Admin</button>
+                <p id="login-status" style="font-size:12px; color:red; margin-top:10px;"></p>
+            </div>
+
+            <!-- Panel Pengelolaan Admin (Tampil Setelah Login Success) -->
+            <div id="admin-panel" style="display:none;">
+                <div class="section-header">
+                    <h2>Pengelolaan Status Berkas & Rekap Data</h2>
+                    <button class="btn-download" onclick="exportData('Permohonan_Layanan')">Unduh Rekap Excel</button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                    <span style="color:green; font-weight:bold; font-size:14px;">✓ Anda Login Sebagai Admin</span>
+                    <button onclick="logoutAdmin()" style="background:#e74c3c; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Logout Admin</button>
+                </div>
+
+                <!-- Tabel Pengelolaan Admin -->
+                <div style="overflow-x:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Resi</th>
+                                <th>Pemohon</th>
+                                <th>TTL</th>
+                                <th>No. HP</th>
+                                <th>Status</th>
+                                <th>Tahun Tamat</th>
+                                <th>Jenis Berkas</th>
+                                <th>Status Berkas</th>
+                                <th>Aksi Ubah Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body">
+                            <!-- Data Masuk Lewat JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENU 6: Suara Kita (Saran/Keluhan) - Privasi Admin -->
+    <div id="suara-kita" class="content-section">
+        <div class="section-header">
+            <h2>Kritik, Saran & Keluhan (Suara Kita)</h2>
+        </div>
+
+        <!-- Jika Belum Login Admin -->
+        <div id="suara-public-box">
+            <p>Menu ini bersifat rahasia dan hanya dapat diakses oleh Administrator untuk menjaga privasi pengirim masukan.</p>
+            <div class="form-group">
+                <label>Form Kirim Saran/Keluhan Masyarakat:</label>
+                <form onsubmit="submitSuaraKita(event)">
+                    <div class="form-group">
+                        <label>Nama (Boleh Dikosongkan / Anonim):</label>
+                        <input type="text" id="suara-nama" placeholder="Anonim">
+                    </div>
+                    <div class="form-group">
+                        <label>Pesan / Saran / Keluhan Anda:</label>
+                        <textarea id="suara-pesan" rows="4" required placeholder="Tuliskan masukan Anda secara rinci..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Kirim Saran & Keluhan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Jika Admin Sudah Login -->
+        <div id="suara-admin-box" style="display:none; margin-top:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <h3 style="color:#0b5072; margin:0;">Rekap Masukan & Keluhan Masyarakat</h3>
+                <button class="btn-download" onclick="exportSuaraKita()">Unduh Rekap Excel Suara Kita</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pengirim</th>
+                        <th>Isi Pesan / Keluhan</th>
+                    </tr>
+                </thead>
+                <tbody id="suara-table-body">
+                    <!-- Data Masuk Lewat JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Data bawaan sebagai simulasi permohonan
+    let database = JSON.parse(localStorage.getItem('sekuntum_db')) || [
+        { id: "REQ-001", pemohon: "Ahmad Dani", ttl: "Tebing Tinggi, 12-05-2006", hp: "081234567890", statusUser: "Murid", tahunTamat: "0", berkas: "Surat Keterangan Aktif Belajar", status: "Pending (Verifikasi Berkas)" },
+        { id: "REQ-002", pemohon: "Siti Rahma", ttl: "Medan, 20-08-2002", hp: "089876543210", statusUser: "Alumni", tahunTamat: "2021", berkas: "Legalisir Ijazah/Transkrip Nilai", status: "Diproses (Pengerjaan TU)" }
+    ];
+
+    // Data bawaan Suara Kita (Saran/Keluhan)
+    let dbSuara = JSON.parse(localStorage.getItem('sekuntum_suara_db')) || [
+        { nama: "Anonim", pesan: "Mohon agar waktu pelayanan pada jam istirahat dapat diperjelas jadwal piketnya." }
+    ];
+
+    let isAdminLoggedIn = false;
+
+    // Toggle Tampil/Sembunyi Input Surat Lainnya
+    function toggleSuratLainnya() {
+        const select = document.getElementById('req-jenis-berkas');
+        const inputWrapper = document.getElementById('wrapper_surat_lainnya');
+        const inputField = document.getElementById('req-jenis-berkas-lainnya');
+
+        if (select.value === 'Lainnya') {
+            inputWrapper.style.display = 'block';
+            inputField.required = true;
+            inputField.focus();
+        } else {
+            inputWrapper.style.display = 'none';
+            inputField.required = false;
+            inputField.value = '';
+        }
+    }
+
+    // Simpan ke LocalStorage
+    function saveData() {
+        localStorage.setItem('sekuntum_db', JSON.stringify(database));
+        if(isAdminLoggedIn) renderAdminTable();
+    }
+
+    function saveSuaraData() {
+        localStorage.setItem('sekuntum_suara_db', JSON.stringify(dbSuara));
+        if(isAdminLoggedIn) renderSuaraTable();
+    }
+
+    // Pindah Menu Utama (Menu 1-6)
+    function openMenu(menuId) {
+        document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.menu-btn').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById(menuId).classList.add('active');
+        if(event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
+    }
+
+    // Pindah Sub Tab pada Menu 5 (Pengguna vs Admin)
+    function switchSubTab(type) {
+        document.getElementById('btn-sub-user').classList.remove('active');
+        document.getElementById('btn-sub-admin').classList.remove('active');
+        
+        if (type === 'user') {
+            document.getElementById('btn-sub-user').classList.add('active');
+            document.getElementById('sub-user-view').style.display = 'block';
+            document.getElementById('sub-admin-view').style.display = 'none';
+        } else {
+            document.getElementById('btn-sub-admin').classList.add('active');
+            document.getElementById('sub-user-view').style.display = 'none';
+            document.getElementById('sub-admin-view').style.display = 'block';
+        }
+    }
+
+    // Submit Permohonan Informasi Status Layanan (Menu 4)
+    function submitPermohonan(event) {
+        event.preventDefault();
+        
+        let nama = document.getElementById('req-nama').value;
+        let tempatLahir = document.getElementById('req-tempat-lahir').value;
+        let tglLahir = document.getElementById('req-tgl-lahir').value;
+        let hp = document.getElementById('req-hp').value;
+        let statusUser = document.getElementById('req-status-user').value;
+        let tahunTamat = document.getElementById('req-tahun-tamat').value;
+        let jenisBerkasSelect = document.getElementById('req-jenis-berkas').value;
+        let jenisBerkas = jenisBerkasSelect;
+
+        // Jika memilih opsi Lainnya, ambil teks dari input manual
+        if (jenisBerkasSelect === 'Lainnya') {
+            jenisBerkas = document.getElementById('req-jenis-berkas-lainnya').value.trim();
+        }
+
+        let ttlFull = tempatLahir + ", " + tglLahir;
+        let newId = "REQ-00" + (database.length + 1);
+
+        database.push({
+            id: newId,
+            pemohon: nama,
+            ttl: ttlFull,
+            hp: hp,
+            statusUser: statusUser,
+            tahunTamat: tahunTamat,
+            berkas: jenisBerkas,
+            status: "Pending (Verifikasi Berkas)"
+        });
+
+        saveData();
+
+        alert("Permohonan Berhasil Dikirim!\n\nID Resi Anda: " + newId + "\nNomor HP: " + hp + "\n\nCatat ID Resi ini untuk melacak status berkas Anda pada Menu 5 (Lacak Status Berkas).");
+        event.target.reset();
+        toggleSuratLainnya(); // Reset tampilan input surat lainnya jika terbuka
+    }
+
+    // Submit Suara Kita (Menu 6)
+    function submitSuaraKita(event) {
+        event.preventDefault();
+        let nama = document.getElementById('suara-nama').value || "Anonim";
+        let pesan = document.getElementById('suara-pesan').value;
+
+        dbSuara.push({ nama: nama, pesan: pesan });
+        saveSuaraData();
+
+        alert("Terima kasih! Saran/Keluhan Anda telah berhasil dikirim secara rahasia kepada Administrator.");
+        event.target.reset();
+    }
+
+    // Pencarian Pribadi oleh Pengguna (Menu 5)
+    function searchStatusUser() {
+        let keyword = document.getElementById('search-keyword').value.trim().toLowerCase();
+        let resultBox = document.getElementById('user-result-box');
+        let resultContent = document.getElementById('user-result-content');
+
+        if (!keyword) {
+            alert("Harap masukkan ID Resi atau Nomor HP Anda.");
+            return;
+        }
+
+        let found = database.filter(item => 
+            item.id.toLowerCase() === keyword || 
+            item.hp.toLowerCase() === keyword
+        );
+
+        if (found.length > 0) {
+            let html = "<table><thead><tr><th>ID Resi</th><th>Nama Pemohon</th><th>Jenis Berkas</th><th>Status Berkas</th></tr></thead><tbody>";
+            found.forEach(item => {
+                let badgeClass = 'bg-pending';
+                if(item.status.includes('Diproses')) badgeClass = 'bg-proses';
+                if(item.status.includes('Siap')) badgeClass = 'bg-siap';
+                if(item.status.includes('Selesai')) badgeClass = 'bg-selesai';
+
+                html += `<tr>
+                    <td><strong>${item.id}</strong></td>
+                    <td>${item.pemohon}</td>
+                    <td>${item.berkas}</td>
+                    <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                </tr>`;
             });
-            const [trackingId, setTrackingId] = useState('');
-            const [trackedItem, setTrackedItem] = useState(null);
-            const [searchQuery, setSearchQuery] = useState('');
-            const [statusFilter, setStatusFilter] = useState('Semua');
-            const [selectedDetail, setSelectedDetail] = useState(null);
-            const [toastMessage, setToastMessage] = useState(null);
-
-            useEffect(() => {
-                localStorage.setItem('sipatuh_requests', JSON.stringify(requests));
-            }, [requests]);
-
-            useEffect(() => {
-                if (window.lucide) {
-                    window.lucide.createIcons();
-                }
-            });
-
-            const showToast = (msg) => {
-                setToastMessage(msg);
-                setTimeout(() => setToastMessage(null), 4000);
-            };
-
-            const handleAdminAccess = () => {
-                if (isAuthenticated) {
-                    setView('admin');
-                } else {
-                    setShowLoginModal(true);
-                }
-            };
-
-            const handleLogout = () => {
-                setIsAuthenticated(false);
-                setView('public');
-                showToast("Anda telah keluar dari Portal TU.");
-            };
-
-            const handleFormSubmit = (formData) => {
-                const newId = `REQ-2026-${String(requests.length + 1).padStart(3, '0')}`;
-                const newEntry = {
-                    id: newId,
-                    ...formData,
-                    tanggal: new Date().toISOString().replace('T', ' ').substring(0, 16),
-                    status: 'Pending',
-                    catatan: 'Permohonan berhasil dikirim. Menunggu verifikasi berkas oleh Ibu Suratih / Staf TU.',
-                    petugas: 'Administrasi TU SMKN 1'
-                };
-                setRequests([newEntry, ...requests]);
-                setTrackingId(newId);
-                setTrackedItem(newEntry);
-                setView('tracking');
-                showToast(`Permohonan Berhasil Dikirim! Kode Resi Anda: ${newId}`);
-            };
-
-            const handleUpdateStatus = (id, newStatus, newCatatan) => {
-                const updated = requests.map(req => {
-                    if (req.id === id) {
-                        return { ...req, status: newStatus, catatan: newCatatan || req.catatan };
-                    }
-                    return req;
-                });
-                setRequests(updated);
-                if (selectedDetail && selectedDetail.id === id) {
-                    setSelectedDetail({ ...selectedDetail, status: newStatus, catatan: newCatatan || selectedDetail.catatan });
-                }
-                showToast(`Status permohonan ${id} diperbarui menjadi: ${newStatus}`);
-            };
-
-            const handleSearchTracking = (e) => {
-                e.preventDefault();
-                const term = trackingId.trim().toLowerCase();
-                const found = requests.find(r => 
-                    r.id.toLowerCase() === term ||
-                    r.noWa.toLowerCase() === term ||
-                    (r.tempatLahir && r.tempatLahir.toLowerCase().includes(term))
-                );
-                if (found) {
-                    setTrackedItem(found);
-                } else {
-                    setTrackedItem('NOT_FOUND');
-                }
-            };
-
-            const handleExportCSV = () => {
-                if (requests.length === 0) {
-                    alert("Tidak ada data untuk diexport.");
-                    return;
-                }
-
-                const headers = ["ID Permohonan", "Nama Pemohon", "Tempat Lahir", "Tanggal Lahir", "NISN", "No WhatsApp", "Kategori", "Tahun Lulus", "Jurusan", "Jenis Layanan", "Jumlah Lembar", "Keperluan", "Tanggal", "Status", "Catatan Petugas"];
-                
-                const csvRows = [
-                    headers.join(','),
-                    ...requests.map(r => [
-                        `"${r.id}"`,
-                        `"${r.nama}"`,
-                        `"${r.tempatLahir || '-'}"`,
-                        `"${r.tanggalLahir || '-'}"`,
-                        `"${r.nisn || '-'}"`,
-                        `"${r.noWa}"`,
-                        `"${r.kategori}"`,
-                        `"${r.tahunLulus}"`,
-                        `"${r.jurusan}"`,
-                        `"${r.jenisLayanan}"`,
-                        `"${r.jumlahLembar}"`,
-                        `"${(r.keperluan || '').replace(/"/g, '""')}"`,
-                        `"${r.tanggal}"`,
-                        `"${r.status}"`,
-                        `"${(r.catatan || '').replace(/"/g, '""')}"`
-                    ].join(','))
-                ];
-
-                const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + csvRows.join('\n');
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", `Rekapitulasi_SIPATUH_SMKN1_${new Date().toISOString().substring(0, 10)}.csv`);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                showToast("Rekapitulasi CSV berhasil diunduh secara real-time!");
-            };
-
-            return (
-                <div class="min-h-screen flex flex-col">
-                    {/* Notification Toast */}
-                    {toastMessage && (
-                        <div class="fixed top-5 right-5 z-50 bg-emerald-700 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-500 animate-bounce">
-                            <i data-lucide="check-circle" class="w-5 h-5"></i>
-                            <span class="font-medium text-sm">{toastMessage}</span>
-                        </div>
-                    )}
-
-                    <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-slate-900 text-white shadow-xl no-print sticky top-0 z-40">
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
-                            <div class="flex items-center gap-3 cursor-pointer" onClick={() => setView('public')}>
-                                <div class="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center border border-white/20 backdrop-blur-sm shadow-inner">
-                                    <i data-lucide="graduation-cap" class="w-6 h-6 text-sky-300"></i>
-                                </div>
-                                <div>
-                                    <h1 class="font-bold text-lg leading-tight tracking-wide flex items-center gap-2">
-                                        SI-PATUH <span class="text-xs bg-sky-500 text-white px-2 py-0.5 rounded-full font-semibold">SMK Negeri 1 Tebing Tinggi</span>
-                                    </h1>
-                                    <p class="text-xs text-sky-200/80">Sistem Informasi Pelayanan Administrasi Tata Usaha Handal SMK Negeri 1 Tebing Tinggi</p>
-                                </div>
-                            </div>
-
-                            <nav class="flex items-center bg-white/10 p-1 rounded-xl border border-white/15 text-xs font-medium">
-                                <button 
-                                    onClick={() => setView('public')}
-                                    class={`px-3.5 py-2 rounded-lg transition-all flex items-center gap-2 ${view === 'public' ? 'bg-sky-500 text-white shadow-md' : 'text-slate-200 hover:bg-white/10'}`}>
-                                    <i data-lucide="file-plus" class="w-4 h-4"></i>
-                                    <span>Ajukan Layanan</span>
-                                </button>
-                                <button 
-                                    onClick={() => setView('tracking')}
-                                    class={`px-3.5 py-2 rounded-lg transition-all flex items-center gap-2 ${view === 'tracking' ? 'bg-sky-500 text-white shadow-md' : 'text-slate-200 hover:bg-white/10'}`}>
-                                    <i data-lucide="search" class="w-4 h-4"></i>
-                                    <span>Lacak Berkas</span>
-                                </button>
-                                <button 
-                                    onClick={handleAdminAccess}
-                                    class={`px-3.5 py-2 rounded-lg transition-all flex items-center gap-2 ${view === 'admin' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-200 hover:bg-white/10'}`}>
-                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
-                                    <span>Portal TU</span>
-                                </button>
-                            </nav>
-                        </div>
-                    </header>
-
-                    {/* Main Content Area */}
-                    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                        {view === 'public' && <PublicPortal onSubmit={handleFormSubmit} onGoTracking={() => setView('tracking')} />}
-                        {view === 'tracking' && (
-                            <TrackingView 
-                                trackingId={trackingId} 
-                                setTrackingId={setTrackingId} 
-                                onSearch={handleSearchTracking} 
-                                trackedItem={trackedItem} 
-                            />
-                        )}
-                        {view === 'admin' && isAuthenticated && (
-                            <AdminDashboard 
-                                requests={requests} 
-                                searchQuery={searchQuery}
-                                setSearchQuery={setSearchQuery}
-                                statusFilter={statusFilter}
-                                setStatusFilter={setStatusFilter}
-                                selectedDetail={selectedDetail}
-                                setSelectedDetail={setSelectedDetail}
-                                onUpdateStatus={handleUpdateStatus}
-                                onExport={handleExportCSV}
-                                onLogout={handleLogout}
-                            />
-                        )}
-                    </main>
-
-                    {/* Modal Login khusus Ibu Suratih */}
-                    {showLoginModal && (
-                        <LoginModal 
-                            onSuccess={() => {
-                                setIsAuthenticated(true);
-                                setShowLoginModal(false);
-                                setView('admin');
-                                showToast("Berhasil masuk sebagai Ibu Suratih.");
-                            }}
-                            onClose={() => setShowLoginModal(false)}
-                        />
-                    )}
-
-                    <footer class="bg-slate-900/90 backdrop-blur-md text-slate-400 py-6 text-xs border-t border-slate-800 no-print mt-auto">
-                        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
-                            <div>
-                                <p class="font-semibold text-slate-200">SMK Negeri 1 Tebing Tinggi — Aplikasi dibuat oleh Surati Yulini, S.Pd</p>
-                                <p class="text-slate-400 mt-0.5">Jl. Dorak, Selatpanjang Timur, Kecamatan Tebing Tinggi, Kabupaten Kepulauan Meranti, Provinsi Riau, Kode Pos 28753.</p>
-                            </div>
-                            <div class="flex items-center gap-4 text-slate-400">
-                                <span class="inline-flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Kabupaten Kepulauan Meranti</span>
-                                <span class="inline-flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> Jam Kerja: 07.30 - 15.00 WIB</span>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
-            );
+            html += "</tbody></table>";
+            resultContent.innerHTML = html;
+        } else {
+            resultContent.innerHTML = "<p style='color:red;'>Data tidak ditemukan. Pastikan ID Resi atau Nomor HP yang Anda masukkan sudah benar.</p>";
         }
 
-        function LoginModal({ onSuccess, onClose }) {
-            const [username, setUsername] = useState('');
-            const [password, setPassword] = useState('');
-            const [error, setError] = useState('');
+        resultBox.style.display = 'block';
+    }
 
-            const handleLogin = (e) => {
-                e.preventDefault();
-                if (username.trim() === 'surati' && password === '12345') {
-                    onSuccess();
-                } else {
-                    setError('ID Login atau Password salah! Akses ditolak.');
-                }
-            };
+    // Autentikasi Admin
+    function loginAdmin() {
+        let u = document.getElementById('admin-user').value;
+        let p = document.getElementById('admin-pass').value;
 
-            return (
-                <div class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 space-y-5 animate-fadeIn">
-                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-emerald-100 text-emerald-700 rounded-lg flex items-center justify-center">
-                                    <i data-lucide="lock" class="w-4 h-4"></i>
-                                </div>
-                                <h3 class="text-base font-bold text-slate-800">Login Portal TU</h3>
-                            </div>
-                            <button onClick={onClose} class="text-slate-400 hover:text-slate-600 p-1">
-                                <i data-lucide="x" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-
-                        {error && (
-                            <div class="bg-red-50 text-red-600 text-xs p-3 rounded-xl border border-red-200 flex items-center gap-2">
-                                <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
-                                <span>{error}</span>
-                            </div>
-                        )}
-
-                        <form onSubmit={handleLogin} class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">ID Login / Username</label>
-                                <input 
-                                    type="text" 
-                                    required 
-                                    value={username} 
-                                    onChange={(e) => setUsername(e.target.value)} 
-                                    placeholder="Masukkan ID Login" 
-                                    class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" 
-                                />
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
-                                <input 
-                                    type="password" 
-                                    required 
-                                    value={password} 
-                                    onChange={(e) => setPassword(e.target.value)} 
-                                    placeholder="Masukkan Password" 
-                                    class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" 
-                                />
-                            </div>
-                            <button 
-                                type="submit" 
-                                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2">
-                                <i data-lucide="key" class="w-4 h-4"></i>
-                                Masuk Portal TU
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            );
+        if(u === 'admintusmk' && p === 'hanyaadmin') {
+            isAdminLoggedIn = true;
+            document.getElementById('admin-login-box').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('suara-admin-box').style.display = 'block';
+            renderAdminTable();
+            renderSuaraTable();
+            alert("Login Admin Berhasil!");
+        } else {
+            document.getElementById('login-status').innerText = "Username atau Password Admin Salah!";
         }
+    }
 
-        function PublicPortal({ onSubmit, onGoTracking }) {
-            const [formData, setFormData] = useState({
-                nama: '',
-                tempatLahir: '',
-                tanggalLahir: '',
-                nisn: '',
-                noWa: '',
-                kategori: 'Alumni',
-                tahunLulus: '2025',
-                jurusan: 'Teknik Otomotif (TO)',
-                jenisLayanan: 'Legalisir Ijazah & Transkrip Nilai',
-                jumlahLembar: 5,
-                keperluan: ''
-            });
+    function logoutAdmin() {
+        isAdminLoggedIn = false;
+        document.getElementById('admin-login-box').style.display = 'block';
+        document.getElementById('admin-panel').style.display = 'none';
+        document.getElementById('suara-admin-box').style.display = 'none';
+        document.getElementById('admin-user').value = '';
+        document.getElementById('admin-pass').value = '';
+        document.getElementById('login-status').innerText = '';
+    }
 
-            const handleChange = (e) => {
-                const { name, value } = e.target;
-                setFormData(prev => ({ ...prev, [name]: value }));
-            };
+    // Render Tabel Panel Admin
+    function renderAdminTable() {
+        let tbody = document.getElementById('admin-table-body');
+        tbody.innerHTML = "";
 
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                onSubmit(formData);
-            };
+        database.forEach((item, index) => {
+            let badgeClass = 'bg-pending';
+            if(item.status.includes('Diproses')) badgeClass = 'bg-proses';
+            if(item.status.includes('Siap')) badgeClass = 'bg-siap';
+            if(item.status.includes('Selesai')) badgeClass = 'bg-selesai';
 
-            return (
-                <div class="space-y-8 animate-fadeIn">
-                    {/* Hero Banner dengan Logo Kanan Atas */}
-                    <div class="bg-gradient-to-r from-brand-800 to-sky-700 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div class="max-w-2xl relative z-10 flex-1">
-                            <span class="inline-block bg-sky-400/20 border border-sky-300/30 text-sky-200 text-xs px-3 py-1 rounded-full font-medium mb-3">
-                                Layanan Bebas Antre & Transparan
-                            </span>
-                            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                                Selamat Datang di Sistem Informasi Pelayanan Administrasi Tata Usaha Handal SMK Negeri 1 Tebing Tinggi
-                            </h2>
-                            <p class="mt-2 text-sky-100 text-sm leading-relaxed">
-                                Permohonan legalisir, pengambilan ijazah, atau surat keterangan kini lebih cepat, mudah, dan dapat dipantau langsung dari HP Anda.
-                            </p>
-                            <div class="mt-5 flex flex-wrap gap-3">
-                                <a href="#form-layanan" class="bg-white text-brand-900 hover:bg-sky-50 font-bold px-4 py-2.5 rounded-xl text-xs transition shadow flex items-center gap-2">
-                                    <i data-lucide="file-text" class="w-4 h-4"></i>
-                                    Isi Formulir Sekarang
-                                </a>
-                                <button onClick={onGoTracking} class="bg-brand-900/60 hover:bg-brand-900 text-white border border-white/20 font-medium px-4 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                                    <i data-lucide="search" class="w-4 h-4"></i>
-                                    Cek Status Permohonan
-                                </button>
-                            </div>
-                        </div>
-                        {/* Logo SMKN 1 Tebing Tinggi di Banner Kanan Atas */}
-                        <div class="relative z-10 shrink-0 bg-white/10 p-3 rounded-2xl backdrop-blur-md border border-white/20 shadow-2xl flex items-center justify-center">
-                            <img 
-                                src="https://lh3.googleusercontent.com/d/1kK1c7S6bhQ9xAZrd1wpZ8o0o9EiSCrmN" 
-                                alt="Logo SMKN 1 Tebing Tinggi" 
-                                class="w-32 h-auto object-contain rounded-lg drop-shadow-lg" 
-                            />
-                        </div>
-                    </div>
+            let row = `<tr>
+                <td><strong>${item.id}</strong></td>
+                <td>${item.pemohon}</td>
+                <td>${item.ttl}</td>
+                <td>${item.hp}</td>
+                <td>${item.statusUser}</td>
+                <td>${item.tahunTamat}</td>
+                <td>${item.berkas}</td>
+                <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                <td>
+                    <select onchange="changeStatus(${index}, this.value)">
+                        <option value="Pending (Verifikasi Berkas)" ${item.status.includes('Pending')?'selected':''}>Pending</option>
+                        <option value="Diproses (Pengerjaan TU)" ${item.status.includes('Diproses')?'selected':''}>Diproses</option>
+                        <option value="Siap diambil di Ruang TU" ${item.status.includes('Siap')?'selected':''}>Siap Diambil</option>
+                        <option value="Selesai (Sudah Diserahkan)" ${item.status.includes('Selesai')?'selected':''}>Selesai</option>
+                    </select>
+                </td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
 
-                    {/* Layout 2 Kolom */}
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        {/* Informasi Persyaratan */}
-                        <div class="lg:col-span-4 space-y-4">
-                            <div class="bg-white/95 backdrop-blur-sm p-5 rounded-2xl shadow-sm border border-slate-200">
-                                <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
-                                    <i data-lucide="info" class="w-4 h-4 text-sky-600"></i>
-                                    Persyaratan Dokumen
-                                </h3>
-                                <hr class="my-3 border-slate-100" />
-                                <ul class="text-xs space-y-3 text-slate-600">
-                                    <li class="flex items-start gap-2">
-                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-                                        <span><b>Legalisir Ijazah/Transkrip Nilai:</b> Wajib Membawa Ijazah/Transkrip Nilai Asli.</span>
-                                    </li>
-                                    <li class="flex items-start gap-2">
-                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-                                        <span><b>Pengambilan Ijazah/Transkrip Nilai:</b> Wajib membawa Bukti Bebas Perpustakaan & Bukti Penelusuran Tamatan di Ruang HUMAS.</span>
-                                    </li>
-                                    <li class="flex items-start gap-2">
-                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-                                        <span><b>Surat Pindah (Mutasi):</b> Melampirkan Surat Rekomendasi dari Sekolah Tujuan, Rapor Asli, Fotocopy KTP Orang Tua, Meterai 10rb, Pas Photo 3x4 1 Lembar.</span>
-                                    </li>    
-                                    <li class="flex items-start gap-2">
-                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-                                        <span><b>Surat Keterangan Aktif Belajar:</b> Wajib membawa Kartu Pelajar SMK Negeri 1 Tebing Tinggi.</span>
-                                    </li>    
-                                    <li class="flex items-start gap-2">
-                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-                                        <span><b>Surat Keterangan Kehilangan Ijazah:</b> Wajib membawa Surat Keterangan Kehilangan dari KEPOLISIAN.</span>
-                                    </li>    
-                                    <li class="flex items-start gap-2">
-                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
-                                        <span><b>Surat Keterangan Kelakuan Baik:</b> Wajib membawa Kartu Pelajar SMK Negeri 1 Tebing Tinggi.</span>
-                                    </li>
-                                </ul>
-                            </div>
+    // Render Tabel Suara Kita untuk Admin
+    function renderSuaraTable() {
+        let tbody = document.getElementById('suara-table-body');
+        tbody.innerHTML = "";
+        dbSuara.forEach((item, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td><strong>${item.nama}</strong></td>
+                <td>${item.pesan}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
 
-                            <div class="bg-amber-50/95 backdrop-blur-sm p-5 rounded-2xl border border-amber-200">
-                                <h4 class="font-bold text-amber-900 text-xs flex items-center gap-2">
-                                    <i data-lucide="clock" class="w-4 h-4 text-amber-600"></i>
-                                    Waktu Penyelesaian
-                                </h4>
-                                <p class="text-xs text-amber-800 mt-1 leading-relaxed">
-                                    Proses verifikasi & penyelesaian dokumen membutuhkan waktu <b>1 - 2 hari kerja</b> setelah permohonan diverifikasi oleh petugas Tata Usaha.
-                                </p>
-                            </div>
-                        </div>
+    // Ubah Status Berkas oleh Admin
+    function changeStatus(index, newStatus) {
+        database[index].status = newStatus;
+        saveData();
+    }
 
-                        {/* Form Pengajuan Layanan */}
-                        <div id="form-layanan" class="lg:col-span-8 bg-white/95 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-                            <div class="border-b border-slate-100 pb-4 mb-6">
-                                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                                    <i data-lucide="edit-3" class="w-5 h-5 text-sky-600"></i>
-                                    Formulir Layanan Permohonan
-                                </h3>
-                                <p class="text-xs text-slate-500 mt-1">Lengkapi data diri Anda dengan akurat untuk mempermudah verifikasi oleh Petugas TU.</p>
-                            </div>
+    // Ekspor Excel Data Permohonan Layanan
+    function exportData(filename) {
+        let worksheet = XLSX.utils.json_to_sheet(database);
+        let workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Rekap Permohonan");
+        XLSX.writeFile(workbook, `${filename}_SEKUNTUM_SMKN1TebingTinggi.xlsx`);
+    }
 
-                            <form onSubmit={handleSubmit} class="space-y-4">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap Pemohon *</label>
-                                        <input type="text" name="nama" required value={formData.nama} onChange={handleChange} placeholder="Contoh: Ahmad Rizky" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nomor WhatsApp / HP *</label>
-                                        <input type="tel" name="noWa" required value={formData.noWa} onChange={handleChange} placeholder="Contoh: 081234567890" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" />
-                                    </div>
-                                </div>
+    // Ekspor Excel Data Suara Kita
+    function exportSuaraKita() {
+        let worksheet = XLSX.utils.json_to_sheet(dbSuara);
+        let workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Suara Kita");
+        XLSX.writeFile(workbook, `Rekap_SuaraKita_SEKUNTUM_SMKN1TebingTinggi.xlsx`);
+    }
+</script>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tempat Lahir *</label>
-                                        <input 
-                                            type="text" 
-                                            name="tempatLahir" 
-                                            required 
-                                            value={formData.tempatLahir} 
-                                            onChange={handleChange} 
-                                            placeholder="Contoh: Selatpanjang" 
-                                            class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" 
-                                        />
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tanggal Lahir *</label>
-                                        <input 
-                                            type="text" 
-                                            name="tanggalLahir" 
-                                            required 
-                                            value={formData.tanggalLahir} 
-                                            onChange={handleChange} 
-                                            placeholder="Contoh: 12 Mei 2005" 
-                                            class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" 
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">NISN (Wajib) *</label>
-                                    <input type="text" name="nisn" value={formData.nisn} onChange={handleChange} placeholder="Jika tidak ada NISN isi dengan 0" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" />
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Kategori Pemohon</label>
-                                        <select name="kategori" value={formData.kategori} onChange={handleChange} class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                                            <option value="Alumni">Alumni</option>
-                                            <option value="Siswa Aktif">Siswa Aktif</option>
-                                            <option value="Orang Tua/Wali">Orang Tua/Wali</option>
-                                            <option value="Masyarakat/Instansi">Masyarakat/Instansi</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tahun Lulus / Angkatan</label>
-                                        <input type="text" name="tahunLulus" value={formData.tahunLulus} onChange={handleChange} placeholder="Contoh: 2024" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Jurusan / Keahlian</label>
-                                        <select name="jurusan" value={formData.jurusan} onChange={handleChange} class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                                            <option value="Teknik Otomotif (TO)">TO (Teknik Otomotif)</option>
-                                            <option value="Teknik Konstruksi dan Perumahan (TKP)">TKP (Teknik Konstruksi dan Perumahan)</option>
-                                            <option value="Teknik Jaringan Komputer dan Telekomunikasi">TJKT (Teknik Jaringan Komputer dan Telekomunikasi)</option>
-                                            <option value="Akuntansi & Keuangan Lembaga">AKL (Akuntansi & Keuangan Lembaga)</option>
-                                            <option value="Manajemen Perkantoran dan Layanan Bisnis">MPLB (Manajemen Perkantoran dan Layanan Bisnis)</option>
-                                            <option value="Pemasaran/Bisnis Digital">PMSR (Pemasaran/Bisnis Digital)</option>
-                                            <option value="Usaha Layanan Pariwisata">ULP (Usaha Layanan Pariwisata)</option>
-                                            <option value="Lainnya">Lainnya / Umum</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div class="sm:col-span-2">
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Jenis Layanan Yang Dibutuhkan *</label>
-                                        <select name="jenisLayanan" value={formData.jenisLayanan} onChange={handleChange} class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                                            <option value="Legalisir Ijazah & Transkrip Nilai">Legalisir Ijazah / Transkrip Nilai</option>
-                                            <option value="Pengambilan Ijazah Asli">Pengambilan Ijazah Asli / Transkrip Nilai</option>
-                                            <option value="Surat Pindah / Mutasi Keluar">Surat Pindah / Mutasi Keluar</option>
-                                            <option value="Surat Keterangan Aktif Siswa">Surat Keterangan Aktif Belajar</option>
-                                            <option value="Surat Keterangan Alumni">Surat Keterangan Alumni</option>
-                                            <option value="Surat Keterangan Kehilangan Ijazah (SKPI)">Surat Keterangan Kehilangan Ijazah (Hilang/Rusak)</option>
-                                            <option value="Surat Keterangan Kelakuan Baik">Surat Keterangan Kelakuan Baik</option>
-                                            <option value="Lainnya">Layanan Administrasi Lainnya</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Jumlah Berkas / Lembar</label>
-                                        <input type="number" min="1" max="10" name="jumlahLembar" value={formData.jumlahLembar} onChange={handleChange} class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Keperluan / Keterangan Tambahan *</label>
-                                    <textarea name="keperluan" required value={formData.keperluan} onChange={handleChange} rows="3" placeholder="Contoh: Untuk melamar kerja di PT XYZ / Pendaftaran Perguruan Tinggi..." class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
-                                </div>
-
-                                <div class="pt-3">
-                                    <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 px-6 rounded-xl text-sm transition shadow-lg shadow-sky-600/20 flex items-center justify-center gap-2">
-                                        <i data-lucide="send" class="w-4 h-4"></i>
-                                        Kirim Permohonan Layanan
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        function TrackingView({ trackingId, setTrackingId, onSearch, trackedItem }) {
-            return (
-                <div class="max-w-3xl mx-auto space-y-6 animate-fadeIn py-4">
-                    <div class="bg-white/95 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 text-center">
-                        <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                            <i data-lucide="search" class="w-6 h-6"></i>
-                        </div>
-                        <h2 class="text-xl font-bold text-slate-800">Lacak Status Permohonan Berkas</h2>
-                        <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">Masukkan Kode Resi Permohonan (contoh: REQ-2026-001), Nomor WhatsApp, atau Tempat Lahir Anda.</p>
-
-                        <form onSubmit={onSearch} class="mt-6 flex flex-col sm:flex-row gap-2 max-w-lg mx-auto">
-                            <input 
-                                type="text" 
-                                required
-                                value={trackingId}
-                                onChange={(e) => setTrackingId(e.target.value)}
-                                placeholder="Masukkan Resi (REQ-2026-XXX) / Tempat Lahir / No WA"
-                                class="flex-grow text-xs p-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm" 
-                            />
-                            <button type="submit" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3.5 rounded-xl text-xs transition flex items-center justify-center gap-2 shrink-0">
-                                <i data-lucide="search" class="w-4 h-4"></i>
-                                Cari Status
-                            </button>
-                        </form>
-                    </div>
-
-                    {trackedItem === 'NOT_FOUND' && (
-                        <div class="bg-red-50/95 backdrop-blur-sm border border-red-200 text-red-700 p-5 rounded-2xl text-center text-xs">
-                            <i data-lucide="alert-circle" class="w-8 h-8 mx-auto text-red-500 mb-2"></i>
-                            <p class="font-bold text-sm">Data Permohonan Tidak Ditemukan</p>
-                            <p class="mt-1">Pastikan Kode Resi, Nomor WhatsApp, atau Tempat Lahir yang Anda masukkan sudah benar.</p>
-                        </div>
-                    )}
-
-                    {trackedItem && trackedItem !== 'NOT_FOUND' && (
-                        <div class="bg-white/95 backdrop-blur-sm p-6 sm:p-8 rounded-2xl shadow-md border border-slate-200 space-y-6">
-                            {/* Header status */}
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
-                                <div>
-                                    <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">{trackedItem.id}</span>
-                                    <h3 class="text-lg font-extrabold text-slate-800">{trackedItem.jenisLayanan}</h3>
-                                    <p class="text-xs text-slate-500">Pemohon: <b>{trackedItem.nama}</b> ({trackedItem.kategori})</p>
-                                </div>
-                                <StatusBadge status={trackedItem.status} />
-                            </div>
-
-                            {/* Visual Timeline Status */}
-                            <div class="py-4">
-                                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Progres Layanan</h4>
-                                <div class="grid grid-cols-4 gap-2 text-center text-xs relative">
-                                    {['Pending', 'Diproses', 'Siap Diambil', 'Selesai'].map((st, idx) => {
-                                        const statuses = ['Pending', 'Diproses', 'Siap Diambil', 'Selesai'];
-                                        const currentIdx = statuses.indexOf(trackedItem.status);
-                                        const isPassed = idx <= currentIdx;
-                                        return (
-                                            <div key={st} class="flex flex-col items-center relative z-10">
-                                                <div class={`w-9 h-9 rounded-full flex items-center justify-center font-bold mb-2 transition-all ${isPassed ? 'bg-emerald-600 text-white ring-4 ring-emerald-100' : 'bg-slate-100 text-slate-400'}`}>
-                                                    {isPassed ? <i data-lucide="check" class="w-5 h-5"></i> : idx + 1}
-                                                </div>
-                                                <span class={`font-semibold ${isPassed ? 'text-slate-800' : 'text-slate-400'}`}>{st}</span>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-
-                            {/* Catatan dari TU */}
-                            <div class="bg-sky-50/70 border border-sky-100 rounded-xl p-4">
-                                <p class="text-xs font-bold text-sky-900 flex items-center gap-1.5 mb-1">
-                                    <i data-lucide="message-square" class="w-4 h-4 text-sky-600"></i>
-                                    Pesan / Catatan Petugas TU (Ibu Suratih)
-                                </p>
-                                <p class="text-xs text-sky-950 leading-relaxed italic">"{trackedItem.catatan || 'Belum ada catatan.'}"</p>
-                            </div>
-
-                            {/* Bukti Cetak Pengambilan */}
-                            <div class="flex justify-between items-center text-xs text-slate-500 pt-2 border-t border-slate-100">
-                                <span>Tanggal Permohonan: {trackedItem.tanggal}</span>
-                                <button onClick={() => window.print()} class="text-sky-600 hover:text-sky-700 font-semibold flex items-center gap-1">
-                                    <i data-lucide="printer" class="w-4 h-4"></i> Cetak Bukti Permohonan
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            );
-        }
-
-        function AdminDashboard({ requests, searchQuery, setSearchQuery, statusFilter, setStatusFilter, selectedDetail, setSelectedDetail, onUpdateStatus, onExport, onLogout }) {
-            const stats = useMemo(() => {
-                const total = requests.length;
-                const pending = requests.filter(r => r.status === 'Pending').length;
-                const diproses = requests.filter(r => r.status === 'Diproses').length;
-                const siap = requests.filter(r => r.status === 'Siap Diambil').length;
-                const selesai = requests.filter(r => r.status === 'Selesai').length;
-                return { total, pending, diproses, siap, selesai };
-            }, [requests]);
-
-            const filteredRequests = useMemo(() => {
-                return requests.filter(r => {
-                    const matchSearch = r.nama.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                        r.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                        r.jenisLayanan.toLowerCase().includes(searchQuery.toLowerCase());
-                    const matchStatus = statusFilter === 'Semua' || r.status === statusFilter;
-                    return matchSearch && matchStatus;
-                });
-            }, [requests, searchQuery, statusFilter]);
-
-            return (
-                <div class="space-y-6 animate-fadeIn">
-                    {/* Admin Header Bar */}
-                    <div class="bg-slate-900/95 backdrop-blur-sm text-white rounded-2xl p-6 shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold">
-                                    Portal Admin TU
-                                </span>
-                                <span class="text-xs text-slate-400">Pengelola: <b>Suratih, S.Pd.</b></span>
-                            </div>
-                            <h2 class="text-2xl font-bold mt-1">Dashboard Layanan TU SMKN 1 Tebing Tinggi</h2>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onClick={onExport} class="bg-emerald-600 hover:bg-emerald-700 text-xs text-white px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 font-medium shadow-sm">
-                                <i data-lucide="download" class="w-4 h-4"></i>
-                                Export Rekapitulasi (CSV)
-                            </button>
-                            <button onClick={onLogout} class="bg-red-600/80 hover:bg-red-600 text-xs text-white px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 font-medium shadow-sm">
-                                <i data-lucide="log-out" class="w-4 h-4"></i>
-                                Keluar
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Stat Cards */}
-                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
-                        <StatCard label="Total Masuk" count={stats.total} color="bg-slate-100/90 text-slate-800 border-slate-200" icon="inbox" />
-                        <StatCard label="Menunggu (Pending)" count={stats.pending} color="bg-amber-50/90 text-amber-700 border-amber-200" icon="clock" />
-                        <StatCard label="Sedang Diproses" count={stats.diproses} color="bg-sky-50/90 text-sky-700 border-sky-200" icon="loader" />
-                        <StatCard label="Siap Diambil" count={stats.siap} color="bg-purple-50/90 text-purple-700 border-purple-200" icon="package-check" />
-                        <StatCard label="Selesai" count={stats.selesai} color="bg-emerald-50/90 text-emerald-700 border-emerald-200" icon="check-circle" />
-                    </div>
-
-                    {/* Filter & Search Controls */}
-                    <div class="bg-white/95 backdrop-blur-sm p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between gap-4">
-                        <div class="relative flex-grow max-w-md">
-                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
-                            <input 
-                                type="text" 
-                                value={searchQuery} 
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Cari pemohon, nomor resi, atau jenis layanan..." 
-                                class="w-full text-xs pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" 
-                            />
-                        </div>
-                        <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 text-xs">
-                            <span class="text-slate-400 font-semibold shrink-0">Filter Status:</span>
-                            {['Semua', 'Pending', 'Diproses', 'Siap Diambil', 'Selesai'].map(st => (
-                                <button 
-                                    key={st}
-                                    onClick={() => setStatusFilter(st)}
-                                    class={`px-3 py-1.5 rounded-xl transition font-medium shrink-0 ${statusFilter === st ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
-                                    {st}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs text-slate-600">
-                                <thead class="bg-slate-50/90 text-slate-700 uppercase tracking-wider font-bold border-b border-slate-200">
-                                    <tr>
-                                        <th class="px-4 py-3.5">Kode Resi</th>
-                                        <th class="px-4 py-3.5">Nama Pemohon</th>
-                                        <th class="px-4 py-3.5">Jenis Layanan</th>
-                                        <th class="px-4 py-3.5">Tanggal</th>
-                                        <th class="px-4 py-3.5">Status</th>
-                                        <th class="px-4 py-3.5 text-center">Aksi (Ibu Suratih)</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100">
-                                    {filteredRequests.length === 0 ? (
-                                        <tr>
-                                            <td colSpan="6" class="px-4 py-8 text-center text-slate-400">Tidak ada data permohonan yang sesuai.</td>
-                                        </tr>
-                                    ) : (
-                                        filteredRequests.map((req) => (
-                                            <tr key={req.id} class="hover:bg-slate-50/50 transition">
-                                                <td class="px-4 py-3.5 font-bold text-sky-700">{req.id}</td>
-                                                <td class="px-4 py-3.5">
-                                                    <p class="font-bold text-slate-800">{req.nama}</p>
-                                                    <p class="text-[11px] text-slate-400">{req.kategori} • WA: {req.noWa}</p>
-                                                </td>
-                                                <td class="px-4 py-3.5 font-medium text-slate-800">{req.jenisLayanan}</td>
-                                                <td class="px-4 py-3.5 text-slate-400">{req.tanggal}</td>
-                                                <td class="px-4 py-3.5"><StatusBadge status={req.status} /></td>
-                                                <td class="px-4 py-3.5 text-center">
-                                                    <button 
-                                                        onClick={() => setSelectedDetail(req)}
-                                                        class="bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 px-3 py-1.5 rounded-lg font-bold transition">
-                                                        Kelola Berkas
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    {/* Modal Detail & Update Status */}
-                    {selectedDetail && (
-                        <AdminModal 
-                            item={selectedDetail} 
-                            onClose={() => setSelectedDetail(null)} 
-                            onUpdateStatus={onUpdateStatus}
-                        />
-                    )}
-                </div>
-            );
-        }
-
-        function StatCard({ label, count, color, icon }) {
-            return (
-                <div class={`p-4 rounded-2xl border ${color} backdrop-blur-sm shadow-sm flex items-center justify-between`}>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider opacity-70">{label}</p>
-                        <h3 class="text-2xl font-black mt-0.5">{count}</h3>
-                    </div>
-                    <div class="p-2.5 bg-white/50 rounded-xl">
-                        <i data-lucide={icon} class="w-5 h-5 opacity-80"></i>
-                    </div>
-                </div>
-            );
-        }
-
-        function StatusBadge({ status }) {
-            let style = "bg-slate-100 text-slate-700 border-slate-200";
-            if (status === 'Pending') style = "bg-amber-100 text-amber-800 border-amber-300";
-            if (status === 'Diproses') style = "bg-sky-100 text-sky-800 border-sky-300";
-            if (status === 'Siap Diambil') style = "bg-purple-100 text-purple-800 border-purple-300";
-            if (status === 'Selesai') style = "bg-emerald-100 text-emerald-800 border-emerald-300";
-
-            return (
-                <span class={`inline-block px-2.5 py-1 rounded-full text-[11px] font-extrabold border ${style}`}>
-                    {status}
-                </span>
-            );
-        }
-
-        function AdminModal({ item, onClose, onUpdateStatus }) {
-            const [status, setStatus] = useState(item.status);
-            const [catatan, setCatatan] = useState(item.catatan || '');
-
-            const handleSave = () => {
-                onUpdateStatus(item.id, status, catatan);
-                onClose();
-            };
-
-            const sendWhatsApp = () => {
-                const text = `Halo Sdr/i ${item.nama}, menginformasikan permohonan layanan ${item.jenisLayanan} (${item.id}) di SMKN 1 Tebing Tinggi saat ini berstatus: *${status}*. Catatan Petugas TU: ${catatan}`;
-                const url = `https://wa.me/${item.noWa.replace(/^0/, '62')}?text=${encodeURIComponent(text)}`;
-                window.open(url, '_blank');
-            };
-
-            return (
-                <div class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 space-y-5 animate-fadeIn">
-                        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                            <div>
-                                <span class="text-xs font-bold text-sky-600">{item.id}</span>
-                                <h3 class="text-lg font-bold text-slate-800">Kelola Permohonan Berkas</h3>
-                            </div>
-                            <button onClick={onClose} class="text-slate-400 hover:text-slate-600 p-1">
-                                <i data-lucide="x" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-
-                        <div class="space-y-3 text-xs text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                            <div class="grid grid-cols-2 gap-2">
-                                <p><b>Pemohon:</b> {item.nama}</p>
-                                <p><b>No WhatsApp:</b> {item.noWa}</p>
-                                <p><b>TTL:</b> {item.tempatLahir}, {item.tanggalLahir}</p>
-                                <p><b>Kategori:</b> {item.kategori}</p>
-                                <p><b>Jurusan/Tahun:</b> {item.jurusan} ({item.tahunLulus})</p>
-                                <p><b>Jumlah:</b> {item.jumlahLembar} Lembar</p>
-                            </div>
-                            <hr class="border-slate-200 my-1" />
-                            <p><b>Keperluan:</b> {item.keperluan}</p>
-                        </div>
-
-                        {/* Update Status Options */}
-                        <div class="space-y-3">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Ubah Status Permohonan</label>
-                                <select value={status} onChange={(e) => setStatus(e.target.value)} class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500 font-semibold">
-                                    <option value="Pending">Pending (Verifikasi Berkas)</option>
-                                    <option value="Diproses">Diproses (Pengerjaan TU)</option>
-                                    <option value="Siap Diambil">Siap Diambil di Ruang TU</option>
-                                    <option value="Selesai">Selesai (Sudah Diserahkan)</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">Catatan / Instruksi Ibu Suratih untuk Pemohon</label>
-                                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Tuliskan catatan tambahan (misal: Bawa fotokopi dokumen pendukung saat pengambilan)..."></textarea>
-                            </div>
-                        </div>
-
-                        {/* Actions */}
-                        <div class="flex flex-col sm:flex-row gap-2 pt-2">
-                            <button onClick={sendWhatsApp} class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center gap-1.5 flex-grow">
-                                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                                Kirim Info via WhatsApp
-                            </button>
-                            <button onClick={handleSave} class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center gap-1.5 flex-grow">
-                                <i data-lucide="save" class="w-4 h-4"></i>
-                                Simpan Perubahan
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
 </body>
 </html>
