@@ -228,12 +228,32 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #d1e7dd;
             padding-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .section-header h2 {
             margin: 0;
             color: #0b5072;
             font-size: 17px;
+        }
+
+        .janji-link-header {
+            font-size: 13px;
+            color: #0b5072;
+            font-weight: 600;
+        }
+
+        .janji-link-header a {
+            color: #107259;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+
+        .janji-link-header a:hover {
+            color: #0a4f3d;
         }
 
         .btn-download {
@@ -445,6 +465,9 @@
     <div id="layanan-murid" class="content-section active">
         <div class="section-header">
             <h2>Persyaratan Layanan Persuratan Murid</h2>
+            <span class="janji-link-header">
+                Ingin membuat janji dari layanan ini? Isi form berikut: <a onclick="scrollToForm('form-janji-murid')">klik disini</a>
+            </span>
         </div>
         
         <div class="syarat-card">
@@ -477,8 +500,8 @@
         </div>
 
         <!-- Sub Menu Form Janji Temu Murid -->
-        <div class="janji-card-box">
-            <h3>Ingin membuat janji dari layanan ini? Isi form berikut:</h3>
+        <div class="janji-card-box" id="form-janji-murid">
+            <h3>Form Pengajuan Janji Temu Layanan Murid</h3>
             <form onsubmit="submitJanjiTemu(event, 'Layanan Murid')">
                 <div class="form-group">
                     <label>Nama Lengkap:</label>
@@ -509,6 +532,9 @@
     <div id="layanan-alumni" class="content-section">
         <div class="section-header">
             <h2>Persyaratan Layanan Persuratan Alumni</h2>
+            <span class="janji-link-header">
+                Ingin membuat janji dari layanan ini? Isi form berikut: <a onclick="scrollToForm('form-janji-alumni')">klik disini</a>
+            </span>
         </div>
 
         <div class="syarat-card">
@@ -547,8 +573,8 @@
         </div>
 
         <!-- Sub Menu Form Janji Temu Alumni -->
-        <div class="janji-card-box">
-            <h3>Ingin membuat janji dari layanan ini? Isi form berikut:</h3>
+        <div class="janji-card-box" id="form-janji-alumni">
+            <h3>Form Pengajuan Janji Temu Layanan Alumni</h3>
             <form onsubmit="submitJanjiTemu(event, 'Layanan Alumni')">
                 <div class="form-group">
                     <label>Nama Lengkap:</label>
@@ -579,6 +605,9 @@
     <div id="layanan-pendidik" class="content-section">
         <div class="section-header">
             <h2>Persyaratan Layanan Persuratan Guru & Tendik</h2>
+            <span class="janji-link-header">
+                Ingin membuat janji dari layanan ini? Isi form berikut: <a onclick="scrollToForm('form-janji-pendidik')">klik disini</a>
+            </span>
         </div>
 
         <p><small>*Persyaratan di bawah ini guna keperluan diunggah (upload) ke dalam aplikasi presensi kehadiran harian.</small></p>
@@ -605,8 +634,8 @@
         </div>
 
         <!-- Sub Menu Form Janji Temu Guru & Tendik -->
-        <div class="janji-card-box">
-            <h3>Ingin membuat janji dari layanan ini? Isi form berikut:</h3>
+        <div class="janji-card-box" id="form-janji-pendidik">
+            <h3>Form Pengajuan Janji Temu Layanan Guru & Tendik</h3>
             <form onsubmit="submitJanjiTemu(event, 'Layanan Guru & Tendik')">
                 <div class="form-group">
                     <label>Nama Lengkap:</label>
@@ -720,7 +749,7 @@
             <div class="form-group">
                 <label>Masukkan ID Resi (REQ-xxx / JNJ-xxx) ATAU Nomor HP Saat Mengajukan:</label>
                 <div style="display:flex; gap:10px;">
-                    <input type="text" id="search-keyword" placeholder="Contoh: JNJ-001, REQ-001, atau 081234567890">
+                    <input type="text" id="search-keyword" placeholder="Contoh: JNJ-123, REQ-123, atau 081234567890">
                     <button onclick="searchStatusUser()" style="background:#0b5072; color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; font-weight:bold;">Cari</button>
                 </div>
             </div>
@@ -866,25 +895,42 @@
 </div>
 
 <script>
-    // Data bawaan sebagai simulasi permohonan layanan (Menu 4)
-    let database = JSON.parse(localStorage.getItem('sekuntum_db')) || [
-        { id: "REQ-001", pemohon: "Ahmad Dani", hp: "081234567890", statusUser: "Murid", berkas: "Surat Keterangan Aktif Belajar", status: "Pending (Verifikasi Berkas)" },
-        { id: "REQ-002", pemohon: "Siti Rahma", hp: "089876543210", statusUser: "Alumni", berkas: "Legalisir Ijazah/Transkrip Nilai", status: "Diproses (Pengerjaan TU)" }
-    ];
+    // LINK WEB APP GOOGLE APPS SCRIPT ANDA
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3Y8NJUHHkcOQD4GOnhPLVZYWD1iAC_ABlW0k666ryaTIrWR5WHGD9lJqlhKBMw-SS/exec";
 
-    // Data bawaan simulasi janji temu (Menu 1, 2, 3)
-    let dbJanji = JSON.parse(localStorage.getItem('sekuntum_janji_db')) || [
-        { id: "JNJ-001", nama: "Budi Santoso", hp: "081234567890", kategori: "Layanan Murid", tanggal: "2026-09-25", waktu: "09:00", status: "Menunggu Konfirmasi", keterangan: "" }
-    ];
-
-    // Data bawaan Suara Kita
-    let dbSuara = JSON.parse(localStorage.getItem('sekuntum_suara_db')) || [
-        { nama: "Anonim", pesan: "Mohon agar waktu pelayanan pada jam istirahat dapat diperjelas jadwal piketnya." }
-    ];
-
+    let database = [];
+    let dbJanji = [];
+    let dbSuara = [];
     let isAdminLoggedIn = false;
 
-    // Toggle Tampil/Sembunyi Input Surat Lainnya
+    // Load data real-time dari Google Sheets saat halaman dimuat
+    window.onload = function() {
+        loadDataFromCloud();
+    };
+
+    function loadDataFromCloud() {
+        fetch(SCRIPT_URL)
+            .then(res => res.json())
+            .then(data => {
+                database = data.permohonan || [];
+                dbJanji = data.janji || [];
+                dbSuara = data.suara || [];
+                if (isAdminLoggedIn) {
+                    renderAdminTable();
+                    renderAdminJanjiTable();
+                    renderSuaraTable();
+                }
+            })
+            .catch(err => console.error("Gagal mengambil data dari cloud:", err));
+    }
+
+    function scrollToForm(elementId) {
+        const target = document.getElementById(elementId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     function toggleSuratLainnya() {
         const select = document.getElementById('req-jenis-berkas');
         const inputWrapper = document.getElementById('wrapper_surat_lainnya');
@@ -901,36 +947,17 @@
         }
     }
 
-    // Simpan ke LocalStorage
-    function saveData() {
-        localStorage.setItem('sekuntum_db', JSON.stringify(database));
-        if(isAdminLoggedIn) renderAdminTable();
-    }
-
-    function saveJanjiData() {
-        localStorage.setItem('sekuntum_janji_db', JSON.stringify(dbJanji));
-        if(isAdminLoggedIn) renderAdminJanjiTable();
-    }
-
-    function saveSuaraData() {
-        localStorage.setItem('sekuntum_suara_db', JSON.stringify(dbSuara));
-        if(isAdminLoggedIn) renderSuaraTable();
-    }
-
-    // Navigasi ke Menu Lacak Status
     function goToLacakStatus() {
         openMenu('lacak-berkas');
         switchSubTab('user');
     }
 
-    // Pindah Menu Utama
     function openMenu(menuId) {
         document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.menu-btn').forEach(el => el.classList.remove('active'));
         
         document.getElementById(menuId).classList.add('active');
         
-        // Match active class button
         let btns = document.querySelectorAll('.menu-btn');
         btns.forEach(btn => {
             if(btn.getAttribute('onclick').includes(menuId)) {
@@ -939,7 +966,6 @@
         });
     }
 
-    // Pindah Sub Tab pada Menu 5
     function switchSubTab(type) {
         document.getElementById('btn-sub-user').classList.remove('active');
         document.getElementById('btn-sub-admin').classList.remove('active');
@@ -955,7 +981,6 @@
         }
     }
 
-    // Pindah Sub Tab Internal Admin TU
     function switchAdminTab(type) {
         document.getElementById('btn-admin-berkas').classList.remove('active');
         document.getElementById('btn-admin-janji').classList.remove('active');
@@ -971,7 +996,7 @@
         }
     }
 
-    // Submit Form Janji Temu (Menu 1, 2, 3)
+    // Submit Janji Temu ke Google Sheets
     function submitJanjiTemu(event, kategoriLayanan) {
         event.preventDefault();
         let form = event.target;
@@ -979,10 +1004,10 @@
         let hp = form.querySelector('.jnj-hp').value;
         let tanggal = form.querySelector('.jnj-tanggal').value;
         let waktu = form.querySelector('.jnj-waktu').value;
+        let newId = "JNJ-" + Math.floor(100 + Math.random() * 900);
 
-        let newId = "JNJ-00" + (dbJanji.length + 1);
-
-        dbJanji.push({
+        let payload = {
+            action: "addJanji",
             id: newId,
             nama: nama,
             hp: hp,
@@ -991,60 +1016,65 @@
             waktu: waktu,
             status: "Menunggu Konfirmasi",
             keterangan: ""
-        });
+        };
 
-        saveJanjiData();
-
-        alert("Pengajuan Janji Temu Berhasil!\n\nID Resi Janji Anda: " + newId + "\nNomor HP: " + hp + "\n\n⚠️ Catat atau Screen Shot Resi ini untuk melacak status yang diajukan pada Menu 5 (Lacak Status Berkas & Janji).");
-        form.reset();
+        fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
+            .then(() => {
+                alert("Pengajuan Janji Temu Berhasil!\n\nID Resi Janji Anda: " + newId + "\nNomor HP: " + hp + "\n\nData tersimpan secara Real-Time ke Server!");
+                form.reset();
+                loadDataFromCloud();
+            })
+            .catch(err => alert("Gagal mengirim data. Periksa koneksi internet Anda."));
     }
 
-    // Submit Permohonan Informasi Status Layanan (Menu 4)
+    // Submit Permohonan Berkas ke Google Sheets
     function submitPermohonan(event) {
         event.preventDefault();
-        
         let nama = document.getElementById('req-nama').value;
         let hp = document.getElementById('req-hp').value;
         let statusUser = document.getElementById('req-status-user').value;
         let jenisBerkasSelect = document.getElementById('req-jenis-berkas').value;
-        let jenisBerkas = jenisBerkasSelect;
+        let jenisBerkas = jenisBerkasSelect === 'Lainnya' ? document.getElementById('req-jenis-berkas-lainnya').value.trim() : jenisBerkasSelect;
+        let newId = "REQ-" + Math.floor(100 + Math.random() * 900);
 
-        if (jenisBerkasSelect === 'Lainnya') {
-            jenisBerkas = document.getElementById('req-jenis-berkas-lainnya').value.trim();
-        }
-
-        let newId = "REQ-00" + (database.length + 1);
-
-        database.push({
+        let payload = {
+            action: "addPermohonan",
             id: newId,
             pemohon: nama,
             hp: hp,
             statusUser: statusUser,
             berkas: jenisBerkas,
             status: "Pending (Verifikasi Berkas)"
-        });
+        };
 
-        saveData();
-
-        alert("Permohonan Berhasil Dikirim!\n\nID Resi Anda: " + newId + "\nNomor HP: " + hp + "\n\n⚠️ Catat atau Screen Shot Resi ini untuk melacak status yang diajukan pada Menu 5 (Lacak Status Berkas & Janji).");
-        event.target.reset();
-        toggleSuratLainnya();
+        fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
+            .then(() => {
+                alert("Permohonan Berhasil Dikirim!\n\nID Resi Anda: " + newId + "\nNomor HP: " + hp + "\n\nData tersimpan secara Real-Time ke Server!");
+                event.target.reset();
+                toggleSuratLainnya();
+                loadDataFromCloud();
+            })
+            .catch(err => alert("Gagal mengirim data. Periksa koneksi internet Anda."));
     }
 
-    // Submit Suara Kita (Menu 6)
+    // Submit Suara Kita ke Google Sheets
     function submitSuaraKita(event) {
         event.preventDefault();
         let nama = document.getElementById('suara-nama').value || "Anonim";
         let pesan = document.getElementById('suara-pesan').value;
 
-        dbSuara.push({ nama: nama, pesan: pesan });
-        saveSuaraData();
+        let payload = { action: "addSuara", nama: nama, pesan: pesan };
 
-        alert("Terima kasih! Saran/Keluhan Anda telah berhasil dikirim secara rahasia kepada Administrator.");
-        event.target.reset();
+        fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
+            .then(() => {
+                alert("Terima kasih! Saran/Keluhan Anda telah berhasil dikirim.");
+                event.target.reset();
+                loadDataFromCloud();
+            })
+            .catch(err => alert("Gagal mengirim data. Periksa koneksi internet Anda."));
     }
 
-    // Pencarian Pribadi oleh Pengguna (Menu 5)
+    // Pencarian Status oleh Pengguna
     function searchStatusUser() {
         let keyword = document.getElementById('search-keyword').value.trim().toLowerCase();
         let resultBox = document.getElementById('user-result-box');
@@ -1055,73 +1085,46 @@
             return;
         }
 
-        let foundBerkas = database.filter(item => 
-            item.id.toLowerCase() === keyword || 
-            item.hp.toLowerCase() === keyword
-        );
+        fetch(SCRIPT_URL)
+            .then(res => res.json())
+            .then(data => {
+                database = data.permohonan || [];
+                dbJanji = data.janji || [];
 
-        let foundJanji = dbJanji.filter(item => 
-            item.id.toLowerCase() === keyword || 
-            item.hp.toLowerCase() === keyword
-        );
+                let foundBerkas = database.filter(item => String(item.id).toLowerCase() === keyword || String(item.hp).toLowerCase() === keyword);
+                let foundJanji = dbJanji.filter(item => String(item.id).toLowerCase() === keyword || String(item.hp).toLowerCase() === keyword);
 
-        if (foundBerkas.length === 0 && foundJanji.length === 0) {
-            resultContent.innerHTML = "<p style='color:red;'>Data tidak ditemukan. Pastikan ID Resi atau Nomor HP yang Anda masukkan sudah benar.</p>";
-            resultBox.style.display = 'block';
-            return;
-        }
+                if (foundBerkas.length === 0 && foundJanji.length === 0) {
+                    resultContent.innerHTML = "<p style='color:red;'>Data tidak ditemukan.</p>";
+                    resultBox.style.display = 'block';
+                    return;
+                }
 
-        let html = "";
+                let html = "";
+                if(foundJanji.length > 0) {
+                    html += "<h4 style='color:#0b5072;'>Status Janji Temu:</h4><table><thead><tr><th>ID Resi</th><th>Nama</th><th>Layanan</th><th>Tgl & Waktu</th><th>Status Janji</th><th>Keterangan Admin</th></tr></thead><tbody>";
+                    foundJanji.forEach(item => {
+                        let badgeClass = item.status.includes('Disetujui') ? 'bg-selesai' : (item.status.includes('Ditolak') ? 'bg-ditolak' : 'bg-pending');
+                        html += `<tr><td><strong>${item.id}</strong></td><td>${item.nama}</td><td>${item.kategori}</td><td>${item.tanggal} ${item.waktu}</td><td><span class="status-badge ${badgeClass}">${item.status}</span></td><td><small>${item.keterangan || '-'}</small></td></tr>`;
+                    });
+                    html += "</tbody></table><br>";
+                }
 
-        // Tampilkan Hasil Janji Temu Jika Ada
-        if(foundJanji.length > 0) {
-            html += "<h4 style='color:#0b5072; margin-bottom:5px;'>Status Janji Temu:</h4>";
-            html += "<table><thead><tr><th>ID Resi</th><th>Nama</th><th>Layanan</th><th>Tgl & Waktu</th><th>Status Janji</th><th>Keterangan Admin</th></tr></thead><tbody>";
-            foundJanji.forEach(item => {
-                let badgeClass = 'bg-pending';
-                if(item.status.includes('Disetujui')) badgeClass = 'bg-selesai';
-                if(item.status.includes('Ditolak')) badgeClass = 'bg-ditolak';
-                if(item.status.includes('Selesai')) badgeClass = 'bg-proses';
+                if(foundBerkas.length > 0) {
+                    html += "<h4 style='color:#0b5072;'>Status Permohonan Berkas:</h4><table><thead><tr><th>ID Resi</th><th>Nama Pemohon</th><th>Jenis Berkas</th><th>Status Berkas</th></tr></thead><tbody>";
+                    foundBerkas.forEach(item => {
+                        let badgeClass = item.status.includes('Diproses') ? 'bg-proses' : (item.status.includes('Siap') ? 'bg-siap' : (item.status.includes('Selesai') ? 'bg-selesai' : 'bg-pending'));
+                        html += `<tr><td><strong>${item.id}</strong></td><td>${item.pemohon}</td><td>${item.berkas}</td><td><span class="status-badge ${badgeClass}">${item.status}</span></td></tr>`;
+                    });
+                    html += "</tbody></table>";
+                }
 
-                let ketText = item.keterangan ? item.keterangan : "-";
-
-                html += `<tr>
-                    <td><strong>${item.id}</strong></td>
-                    <td>${item.nama}</td>
-                    <td>${item.kategori}</td>
-                    <td>${item.tanggal} ${item.waktu} WIB</td>
-                    <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
-                    <td><small style="color:${item.status.includes('Ditolak')?'#e74c3c':'#333'}; font-weight:${item.status.includes('Ditolak')?'bold':'normal'};">${ketText}</small></td>
-                </tr>`;
+                resultContent.innerHTML = html;
+                resultBox.style.display = 'block';
             });
-            html += "</tbody></table><br>";
-        }
-
-        // Tampilkan Hasil Permohonan Berkas Jika Ada
-        if(foundBerkas.length > 0) {
-            html += "<h4 style='color:#0b5072; margin-bottom:5px;'>Status Permohonan Berkas:</h4>";
-            html += "<table><thead><tr><th>ID Resi</th><th>Nama Pemohon</th><th>Jenis Berkas</th><th>Status Berkas</th></tr></thead><tbody>";
-            foundBerkas.forEach(item => {
-                let badgeClass = 'bg-pending';
-                if(item.status.includes('Diproses')) badgeClass = 'bg-proses';
-                if(item.status.includes('Siap')) badgeClass = 'bg-siap';
-                if(item.status.includes('Selesai')) badgeClass = 'bg-selesai';
-
-                html += `<tr>
-                    <td><strong>${item.id}</strong></td>
-                    <td>${item.pemohon}</td>
-                    <td>${item.berkas}</td>
-                    <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
-                </tr>`;
-            });
-            html += "</tbody></table>";
-        }
-
-        resultContent.innerHTML = html;
-        resultBox.style.display = 'block';
     }
 
-    // Autentikasi Admin
+    // Login Admin
     function loginAdmin() {
         let u = document.getElementById('admin-user').value;
         let p = document.getElementById('admin-pass').value;
@@ -1131,9 +1134,7 @@
             document.getElementById('admin-login-box').style.display = 'none';
             document.getElementById('admin-panel').style.display = 'block';
             document.getElementById('suara-admin-box').style.display = 'block';
-            renderAdminTable();
-            renderAdminJanjiTable();
-            renderSuaraTable();
+            loadDataFromCloud();
             alert("Login Admin Berhasil!");
         } else {
             document.getElementById('login-status').innerText = "Username atau Password Admin Salah!";
@@ -1145,22 +1146,13 @@
         document.getElementById('admin-login-box').style.display = 'block';
         document.getElementById('admin-panel').style.display = 'none';
         document.getElementById('suara-admin-box').style.display = 'none';
-        document.getElementById('admin-user').value = '';
-        document.getElementById('admin-pass').value = '';
-        document.getElementById('login-status').innerText = '';
     }
 
-    // Render Tabel Permohonan Berkas Admin
     function renderAdminTable() {
         let tbody = document.getElementById('admin-table-body');
         tbody.innerHTML = "";
-
-        database.forEach((item, index) => {
-            let badgeClass = 'bg-pending';
-            if(item.status.includes('Diproses')) badgeClass = 'bg-proses';
-            if(item.status.includes('Siap')) badgeClass = 'bg-siap';
-            if(item.status.includes('Selesai')) badgeClass = 'bg-selesai';
-
+        database.forEach((item) => {
+            let badgeClass = item.status.includes('Diproses') ? 'bg-proses' : (item.status.includes('Siap') ? 'bg-siap' : (item.status.includes('Selesai') ? 'bg-selesai' : 'bg-pending'));
             let row = `<tr>
                 <td><strong>${item.id}</strong></td>
                 <td>${item.pemohon}</td>
@@ -1169,7 +1161,7 @@
                 <td>${item.berkas}</td>
                 <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
                 <td>
-                    <select onchange="changeStatus(${index}, this.value)">
+                    <select onchange="changeStatus('${item.id}', this.value)">
                         <option value="Pending (Verifikasi Berkas)" ${item.status.includes('Pending')?'selected':''}>Pending</option>
                         <option value="Diproses (Pengerjaan TU)" ${item.status.includes('Diproses')?'selected':''}>Diproses</option>
                         <option value="Siap diambil di Ruang TU" ${item.status.includes('Siap')?'selected':''}>Siap Diambil</option>
@@ -1181,19 +1173,11 @@
         });
     }
 
-    // Render Tabel Janji Temu Admin
     function renderAdminJanjiTable() {
         let tbody = document.getElementById('admin-janji-table-body');
         tbody.innerHTML = "";
-
-        dbJanji.forEach((item, index) => {
-            let badgeClass = 'bg-pending';
-            if(item.status.includes('Disetujui')) badgeClass = 'bg-selesai';
-            if(item.status.includes('Ditolak')) badgeClass = 'bg-ditolak';
-            if(item.status.includes('Selesai')) badgeClass = 'bg-proses';
-
-            let ketVal = item.keterangan || "";
-
+        dbJanji.forEach((item) => {
+            let badgeClass = item.status.includes('Disetujui') ? 'bg-selesai' : (item.status.includes('Ditolak') ? 'bg-ditolak' : 'bg-pending');
             let row = `<tr>
                 <td><strong>${item.id}</strong></td>
                 <td>${item.nama}</td>
@@ -1201,18 +1185,9 @@
                 <td>${item.kategori}</td>
                 <td>${item.tanggal} ${item.waktu}</td>
                 <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
+                <td><input type="text" id="ket-${item.id}" value="${item.keterangan || ''}" placeholder="Keterangan/alasan..." style="width:90%;"></td>
                 <td>
-                    <input 
-                        type="text" 
-                        id="ket-janji-${index}" 
-                        value="${ketVal}" 
-                        placeholder="Alasan ditolak / catatan..."
-                        onchange="updateJanjiKeterangan(${index}, this.value)"
-                        style="width:90%; padding:4px; font-size:12px;"
-                    />
-                </td>
-                <td>
-                    <select onchange="changeJanjiStatus(${index}, this.value)">
+                    <select onchange="changeJanjiStatus('${item.id}', this.value)">
                         <option value="Menunggu Konfirmasi" ${item.status.includes('Menunggu')?'selected':''}>Menunggu</option>
                         <option value="Disetujui" ${item.status.includes('Disetujui')?'selected':''}>Disetujui</option>
                         <option value="Ditolak / Reschedule" ${item.status.includes('Ditolak')?'selected':''}>Ditolak</option>
@@ -1224,45 +1199,32 @@
         });
     }
 
-    // Render Tabel Suara Kita
     function renderSuaraTable() {
         let tbody = document.getElementById('suara-table-body');
         tbody.innerHTML = "";
         dbSuara.forEach((item, index) => {
-            let row = `<tr>
-                <td>${index + 1}</td>
-                <td><strong>${item.nama}</strong></td>
-                <td>${item.pesan}</td>
-            </tr>`;
-            tbody.innerHTML += row;
+            tbody.innerHTML += `<tr><td>${index + 1}</td><td><strong>${item.nama}</strong></td><td>${item.pesan}</td></tr>`;
         });
     }
 
-    // Ubah Status Berkas oleh Admin
-    function changeStatus(index, newStatus) {
-        database[index].status = newStatus;
-        saveData();
+    // Update Status Berkas di Cloud oleh Admin
+    function changeStatus(id, newStatus) {
+        let payload = { action: "updateStatusPermohonan", id: id, status: newStatus };
+        fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
+            .then(() => loadDataFromCloud());
     }
 
-    // Ubah Status Janji Temu oleh Admin & Minta Input Alasan Jika Ditolak
-    function changeJanjiStatus(index, newStatus) {
-        if (newStatus.includes('Ditolak')) {
-            let alasan = prompt("Masukkan alasan / keterangan penolakan (misal: 'Petugas sedang rapat, silakan pilih tanggal lain'):", dbJanji[index].keterangan || "");
-            if (alasan !== null) {
-                dbJanji[index].keterangan = alasan;
-            }
+    // Update Status Janji Temu di Cloud oleh Admin
+    function changeJanjiStatus(id, newStatus) {
+        let ketInput = document.getElementById(`ket-${id}`).value;
+        if (newStatus.includes('Ditolak') && !ketInput) {
+            ketInput = prompt("Masukkan alasan penolakan:", "");
         }
-        dbJanji[index].status = newStatus;
-        saveJanjiData();
+        let payload = { action: "updateStatusJanji", id: id, status: newStatus, keterangan: ketInput || "" };
+        fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
+            .then(() => loadDataFromCloud());
     }
 
-    // Update Keterangan Janji manual via input text
-    function updateJanjiKeterangan(index, value) {
-        dbJanji[index].keterangan = value;
-        localStorage.setItem('sekuntum_janji_db', JSON.stringify(dbJanji));
-    }
-
-    // Ekspor Excel Data Permohonan Layanan
     function exportData(filename) {
         let worksheet = XLSX.utils.json_to_sheet(database);
         let workbook = XLSX.utils.book_new();
@@ -1270,7 +1232,6 @@
         XLSX.writeFile(workbook, `${filename}_SEKUNTUM_SMKN1TebingTinggi.xlsx`);
     }
 
-    // Ekspor Excel Data Janji Temu
     function exportJanjiData(filename) {
         let worksheet = XLSX.utils.json_to_sheet(dbJanji);
         let workbook = XLSX.utils.book_new();
@@ -1278,7 +1239,6 @@
         XLSX.writeFile(workbook, `${filename}_SEKUNTUM_SMKN1TebingTinggi.xlsx`);
     }
 
-    // Ekspor Excel Data Suara Kita
     function exportSuaraKita() {
         let worksheet = XLSX.utils.json_to_sheet(dbSuara);
         let workbook = XLSX.utils.book_new();
