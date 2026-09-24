@@ -7,6 +7,8 @@
     <title>SEKUNTUM - SMKN 1 Tebing Tinggi</title>
     <!-- Favicon Logo SMKN 1 Tebing Tinggi -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1kK1c7S6bhQ9xAZrd1wpZ8o0o9EiSCrmN">
+    <!-- Font Awesome CDN untuk Ikon Modern -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Library SheetJS untuk Ekspor Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
@@ -21,7 +23,7 @@
             --border-radius: 12px;
         }
 
-        /* Gradasi Latar Belakang */
+        /* Gradasi Latar Belakang Utama */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #093450 0%, #0d5c58 35%, #187a55 65%, #92a316 100%);
@@ -48,12 +50,15 @@
         .top-brand {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             background: #0d2942;
             padding: 14px 22px;
             border-radius: 14px;
             margin-bottom: 20px;
             color: white;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .brand-left-group {
@@ -63,23 +68,24 @@
         }
 
         .brand-icon-box {
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
         .brand-icon-box svg {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             fill: none;
             stroke: #38bdf8;
-            stroke-width: 2;
+            stroke-width: 1.8;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
@@ -139,6 +145,13 @@
             z-index: 2;
         }
 
+        .banner-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
         .banner-pill {
             display: inline-block;
             background: rgba(255, 255, 255, 0.18);
@@ -148,7 +161,12 @@
             border-radius: 30px;
             font-size: 12px;
             font-weight: 600;
-            margin-bottom: 12px;
+        }
+
+        .banner-pill.jam-op {
+            background: rgba(241, 196, 15, 0.25);
+            border-color: #f1c40f;
+            color: #ffeb3b;
         }
 
         .header-banner h2 {
@@ -182,34 +200,70 @@
             height: auto;
         }
 
-        /* Navigasi Grid Menu */
+        /* GRID KOTAK MENU INDIVIDUAL */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
             margin-bottom: 25px;
         }
 
         .menu-btn {
-            background-color: #ffffff;
-            border: 2px solid #0d6b52;
-            color: #0d6b52;
-            padding: 12px;
-            border-radius: 10px;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
-            font-size: 13px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
         }
 
-        .menu-btn:hover, .menu-btn.active {
-            background-color: #0d6b52;
-            color: white;
-            border-color: #0d6b52;
-            box-shadow: 0 4px 12px rgba(13, 107, 82, 0.25);
+        .menu-btn i {
+            font-size: 18px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
+        .menu-btn span {
+            flex-grow: 1;
+            line-height: 1.3;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+        }
+
+        .menu-btn.active {
+            box-shadow: inset 0 0 0 3px #ffffff, 0 8px 20px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-menu-1 { background: linear-gradient(135deg, #0d6b52 0%, #054f3c 100%); }
+        .btn-menu-2 { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); }
+        .btn-menu-3 { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+        .btn-menu-4 { background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); }
+        .btn-menu-5 { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
+        .btn-menu-6 { background: linear-gradient(135deg, #e11d48 0%, #be123c 100%); }
+
+        /* Content Section Styling */
         .content-section {
             display: none;
             background-color: #f7fcfa;
@@ -293,6 +347,7 @@
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 13px;
+            font-family: inherit;
         }
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -381,6 +436,21 @@
             font-size: 16px;
         }
 
+        .info-jam-operasional {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            color: #854d0e;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
         /* Table Track & Admin */
         table {
             width: 100%;
@@ -417,143 +487,37 @@
         .bg-selesai { background-color: #2ecc71; }
         .bg-ditolak { background-color: #e74c3c; }
 
-        /* ========================================================
-           ATURAN KHUSUS HANDPHONE / MOBILE (LAYAR <= 768px)
-           Komputer/Desktop TIDAK akan terpengaruh sama sekali!
-           ======================================================== */
+        /* Mobile Responsive Style (<= 768px) */
         @media screen and (max-width: 768px) {
-            * {
-                box-sizing: border-box;
-            }
-
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 15px;
-                border-radius: 12px;
-            }
-
-            /* Navbar Brand di HP */
-            .top-brand {
-                padding: 12px 15px;
-            }
-
-            .brand-left-group {
-                gap: 10px;
-            }
-
-            .brand-icon-box {
-                width: 38px;
-                height: 38px;
-            }
-
-            .brand-icon-box svg {
-                width: 22px;
-                height: 22px;
-            }
-
-            .brand-title-row {
-                flex-wrap: wrap;
-                gap: 5px;
-            }
-
-            .brand-title-row h1 {
-                font-size: 16px;
-            }
-
-            .brand-badge {
-                font-size: 10px;
-                padding: 2px 6px;
-            }
-
-            .brand-subtitle {
-                font-size: 11px;
-            }
-
-            /* Header Banner di HP */
-            .header-banner {
-                flex-direction: column-reverse;
-                text-align: center;
-                padding: 20px 15px;
-                gap: 15px;
-            }
-
-            .banner-text {
-                max-width: 100%;
-            }
-
-            .header-banner h2 {
-                font-size: 18px;
-            }
-
-            .header-banner p {
-                font-size: 12px;
-            }
-
-            .banner-logo-box img {
-                width: 65px;
-            }
-
-            /* Menu Navigasi 1 Kolom Rapi di HP */
-            .menu-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .menu-btn {
-                padding: 11px;
-                font-size: 12.5px;
-                width: 100%;
-            }
-
-            .content-section {
-                padding: 15px;
-            }
-
-            .section-header h2 {
-                font-size: 15px;
-            }
-
-            .janji-link-header {
-                font-size: 12px;
-            }
-
-            /* Sub Tab (User/Admin) di HP */
-            .sub-tab-container {
-                flex-direction: column;
-                gap: 6px;
-            }
-
-            .sub-tab-btn {
-                width: 100%;
-            }
-
-            /* Form Pencarian Lacak Berkas di HP */
-            .search-box-group {
-                flex-direction: column !important;
-            }
-
-            .search-box-group button {
-                width: 100% !important;
-            }
-
-            /* Agar Tabel Bisa Di-scroll Horizontal Tanpa Merusak Tampilan HP */
-            .table-container-mobile {
-                width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            table {
-                font-size: 12px;
-                white-space: nowrap;
-            }
-
-            th, td {
-                padding: 8px;
-            }
+            * { box-sizing: border-box; }
+            body { padding: 10px; }
+            .container { padding: 15px; border-radius: 12px; }
+            .top-brand { padding: 12px 15px; }
+            .brand-left-group { gap: 10px; }
+            .brand-icon-box { width: 40px; height: 40px; }
+            .brand-icon-box svg { width: 24px; height: 24px; }
+            .brand-title-row { flex-wrap: wrap; gap: 5px; }
+            .brand-title-row h1 { font-size: 16px; }
+            .brand-badge { font-size: 10px; padding: 2px 6px; }
+            .brand-subtitle { font-size: 11px; }
+            .header-banner { flex-direction: column-reverse; text-align: center; padding: 20px 15px; gap: 15px; }
+            .banner-text { max-width: 100%; }
+            .banner-pills { justify-content: center; }
+            .header-banner h2 { font-size: 18px; }
+            .header-banner p { font-size: 12px; }
+            .banner-logo-box img { width: 65px; }
+            .menu-grid { grid-template-columns: 1fr; gap: 10px; }
+            .menu-btn { padding: 14px 16px; font-size: 13.5px; width: 100%; }
+            .content-section { padding: 15px; }
+            .section-header h2 { font-size: 15px; }
+            .janji-link-header { font-size: 12px; }
+            .sub-tab-container { flex-direction: column; gap: 6px; }
+            .sub-tab-btn { width: 100%; }
+            .search-box-group { flex-direction: column !important; }
+            .search-box-group button { width: 100% !important; }
+            .table-container-mobile { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { font-size: 12px; white-space: nowrap; }
+            th, td { padding: 8px; }
         }
     </style>
 </head>
@@ -563,10 +527,17 @@
     <!-- Top Header Navbar Brand -->
     <div class="top-brand">
         <div class="brand-left-group">
-            <div class="brand-icon-box">
+            <!-- IKON SEKUNTUM BARU: Kuncup Bunga Mekar & Dokumen Digital -->
+            <div class="brand-icon-box" title="Kelopak SEKUNTUM di atas Dokumen Digital">
                 <svg viewBox="0 0 24 24">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    <!-- Dokumen/Buku di bagian bawah -->
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#38bdf8" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#38bdf8" />
+                    <!-- Kelopak Bunga/Kuncup Mekar (Filosofi SEKUNTUM) -->
+                    <path d="M12 7c-2-2.5-4.5-2-4.5 1s2.5 4 4.5 6c2-2 4.5-3 4.5-6s-2.5-3.5-4.5-1z" fill="rgba(56,189,248,0.25)" stroke="#38bdf8" />
+                    <path d="M12 14v-4" stroke="#38bdf8" />
+                    <!-- Sparkle / Cahaya Mekar -->
+                    <circle cx="12" cy="5" r="1" fill="#ffeb3b" stroke="none" />
                 </svg>
             </div>
             <div class="brand-text-box">
@@ -582,7 +553,10 @@
     <!-- Header Banner Aplikasi -->
     <div class="header-banner">
         <div class="banner-text">
-            <div class="banner-pill">Pusat Informasi & Lacak Berkas Digital</div>
+            <div class="banner-pills">
+                <div class="banner-pill">Pusat Informasi & Lacak Berkas Digital</div>
+                <div class="banner-pill jam-op"><i class="far fa-clock"></i> Senin - Jumat: 07.00 - 16.00 WIB (Istirahat: 12.00 - 13.30 WIB)</div>
+            </div>
             <h2>Selamat Datang Di SEKUNTUM SMK Negeri 1 Tebing Tinggi</h2>
             <p>Permohonan legalisir, pengambilan ijazah, surat keterangan, atau informasi status berkas kini lebih cepat, mudah, dan dapat dipantau langsung dari HP Anda.</p>
         </div>
@@ -593,12 +567,30 @@
 
     <!-- Tombol Menu Utama Navigation -->
     <div class="menu-grid">
-        <button class="menu-btn active" onclick="openMenu('layanan-murid')">1. Layanan Murid</button>
-        <button class="menu-btn" onclick="openMenu('layanan-alumni')">2. Layanan Alumni</button>
-        <button class="menu-btn" onclick="openMenu('layanan-pendidik')">3. Layanan Guru & Tendik</button>
-        <button class="menu-btn" onclick="openMenu('ajukan-layanan')">4. Ajukan Informasi Status Layanan</button>
-        <button class="menu-btn" onclick="openMenu('lacak-berkas')">5. Lacak Status Berkas & Janji</button>
-        <button class="menu-btn" onclick="openMenu('suara-kita')">6. Suara Kita (Saran/Keluhan)</button>
+        <button class="menu-btn btn-menu-1 active" onclick="openMenu('layanan-murid')">
+            <i class="fas fa-user-graduate"></i>
+            <span>1. Layanan Murid</span>
+        </button>
+        <button class="menu-btn btn-menu-2" onclick="openMenu('layanan-alumni')">
+            <i class="fas fa-user-tie"></i>
+            <span>2. Layanan Alumni</span>
+        </button>
+        <button class="menu-btn btn-menu-3" onclick="openMenu('layanan-pendidik')">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>3. Layanan Guru & Tendik</span>
+        </button>
+        <button class="menu-btn btn-menu-4" onclick="openMenu('ajukan-layanan')">
+            <i class="fas fa-file-signature"></i>
+            <span>4. Ajukan Informasi Status Layanan</span>
+        </button>
+        <button class="menu-btn btn-menu-5" onclick="openMenu('lacak-berkas')">
+            <i class="fas fa-search-location"></i>
+            <span>5. Lacak Status Berkas & Janji</span>
+        </button>
+        <button class="menu-btn btn-menu-6" onclick="openMenu('suara-kita')">
+            <i class="fas fa-comments"></i>
+            <span>6. Suara Kita (Saran/Keluhan)</span>
+        </button>
     </div>
 
     <!-- MENU 1: Layanan Murid -->
@@ -642,6 +634,9 @@
         <!-- Sub Menu Form Janji Temu Murid -->
         <div class="janji-card-box" id="form-janji-murid">
             <h3>Form Pengajuan Janji Temu Layanan Murid</h3>
+            <div class="info-jam-operasional">
+                <i class="fas fa-info-circle"></i> Jam Operasional Layanan: Senin – Jumat (07.00 – 16.00 WIB) | Jam Istirahat: 12.00 – 13.30 WIB
+            </div>
             <form onsubmit="submitJanjiTemu(event, 'Layanan Murid')">
                 <div class="form-group">
                     <label>Nama Lengkap:</label>
@@ -652,12 +647,16 @@
                     <input type="tel" class="jnj-hp" placeholder="Contoh: 081234567890" required>
                 </div>
                 <div class="form-group">
+                    <label>Maksud dan Tujuan Janji Temu:</label>
+                    <textarea class="jnj-maksud" rows="3" placeholder="Tuliskan alasan/maksud keperluan Anda secara ringkas..." required></textarea>
+                </div>
+                <div class="form-group">
                     <label>Hari / Tanggal Janji Temu:</label>
                     <input type="date" class="jnj-tanggal" required>
                 </div>
                 <div class="form-group">
-                    <label>Waktu Janji Temu:</label>
-                    <input type="time" class="jnj-waktu" required>
+                    <label>Waktu Janji Temu (Antara 07.00 - 16.00 WIB, Hindari 12.00 - 13.30):</label>
+                    <input type="time" class="jnj-waktu" min="07:00" max="16:00" required>
                 </div>
                 <button type="submit" class="btn-submit">Kirim Pengajuan Janji Temu</button>
             </form>
@@ -715,6 +714,9 @@
         <!-- Sub Menu Form Janji Temu Alumni -->
         <div class="janji-card-box" id="form-janji-alumni">
             <h3>Form Pengajuan Janji Temu Layanan Alumni</h3>
+            <div class="info-jam-operasional">
+                <i class="fas fa-info-circle"></i> Jam Operasional Layanan: Senin – Jumat (07.00 – 16.00 WIB) | Jam Istirahat: 12.00 – 13.30 WIB
+            </div>
             <form onsubmit="submitJanjiTemu(event, 'Layanan Alumni')">
                 <div class="form-group">
                     <label>Nama Lengkap:</label>
@@ -725,12 +727,16 @@
                     <input type="tel" class="jnj-hp" placeholder="Contoh: 081234567890" required>
                 </div>
                 <div class="form-group">
+                    <label>Maksud dan Tujuan Janji Temu:</label>
+                    <textarea class="jnj-maksud" rows="3" placeholder="Tuliskan alasan/maksud keperluan Anda secara ringkas..." required></textarea>
+                </div>
+                <div class="form-group">
                     <label>Hari / Tanggal Janji Temu:</label>
                     <input type="date" class="jnj-tanggal" required>
                 </div>
                 <div class="form-group">
-                    <label>Waktu Janji Temu:</label>
-                    <input type="time" class="jnj-waktu" required>
+                    <label>Waktu Janji Temu (Antara 07.00 - 16.00 WIB, Hindari 12.00 - 13.30):</label>
+                    <input type="time" class="jnj-waktu" min="07:00" max="16:00" required>
                 </div>
                 <button type="submit" class="btn-submit">Kirim Pengajuan Janji Temu</button>
             </form>
@@ -776,6 +782,9 @@
         <!-- Sub Menu Form Janji Temu Guru & Tendik -->
         <div class="janji-card-box" id="form-janji-pendidik">
             <h3>Form Pengajuan Janji Temu Layanan Guru & Tendik</h3>
+            <div class="info-jam-operasional">
+                <i class="fas fa-info-circle"></i> Jam Operasional Layanan: Senin – Jumat (07.00 – 16.00 WIB) | Jam Istirahat: 12.00 – 13.30 WIB
+            </div>
             <form onsubmit="submitJanjiTemu(event, 'Layanan Guru & Tendik')">
                 <div class="form-group">
                     <label>Nama Lengkap:</label>
@@ -786,12 +795,16 @@
                     <input type="tel" class="jnj-hp" placeholder="Contoh: 081234567890" required>
                 </div>
                 <div class="form-group">
+                    <label>Maksud dan Tujuan Janji Temu:</label>
+                    <textarea class="jnj-maksud" rows="3" placeholder="Tuliskan alasan/maksud keperluan Anda secara ringkas..." required></textarea>
+                </div>
+                <div class="form-group">
                     <label>Hari / Tanggal Janji Temu:</label>
                     <input type="date" class="jnj-tanggal" required>
                 </div>
                 <div class="form-group">
-                    <label>Waktu Janji Temu:</label>
-                    <input type="time" class="jnj-waktu" required>
+                    <label>Waktu Janji Temu (Antara 07.00 - 16.00 WIB, Hindari 12.00 - 13.30):</label>
+                    <input type="time" class="jnj-waktu" min="07:00" max="16:00" required>
                 </div>
                 <button type="submit" class="btn-submit">Kirim Pengajuan Janji Temu</button>
             </form>
@@ -833,40 +846,31 @@
             <div class="form-group">
                 <label>Jenis Berkas / Surat yang Diajukan:</label>
                 <select id="req-jenis-berkas" onchange="toggleSuratLainnya()" required>
-                    <!-- Kategori Murid -->
                     <optgroup label="Layanan Murid">
                         <option value="Surat Keterangan Aktif Belajar">Surat Keterangan Aktif Belajar</option>
                         <option value="Surat Keterangan Kelakuan Baik">Surat Keterangan Kelakuan Baik</option>
                         <option value="Surat Keterangan Pindah/Mutasi Keluar">Surat Keterangan Pindah/Mutasi Keluar</option>
                     </optgroup>
-                    <!-- Kategori Alumni -->
                     <optgroup label="Layanan Alumni">
                         <option value="Pengambilan Ijazah">Pengambilan Ijazah</option>
                         <option value="Legalisir Ijazah/Transkrip Nilai">Legalisir Ijazah/Transkrip Nilai</option>
                         <option value="Surat Keterangan Alumni">Surat Keterangan Alumni</option>
                         <option value="Surat Keterangan Kesalahan Penulisan Ijazah">Surat Keterangan Kesalahan Penulisan Ijazah</option>
                     </optgroup>
-                    <!-- Kategori Guru/Tendik -->
                     <optgroup label="Layanan Guru & Tendik">
                         <option value="Surat Keterangan Sakit">Surat Keterangan Sakit</option>
                         <option value="Surat Keterangan Cuti Melahirkan">Surat Keterangan Cuti Melahirkan</option>
                         <option value="Surat Keterangan Perjalanan Dinas">Surat Keterangan Perjalanan Dinas</option>
                     </optgroup>
-                    <!-- Kategori Lainnya -->
                     <optgroup label="Lainnya">
                         <option value="Lainnya">Lainnya (Ketik Manual)</option>
                     </optgroup>
                 </select>
             </div>
 
-            <!-- Input Teks Tambahan untuk Surat Lainnya -->
             <div class="form-group" id="wrapper_surat_lainnya" style="display: none;">
                 <label for="req-jenis-berkas-lainnya">Tuliskan Jenis Surat Yang Dibutuhkan:</label>
-                <input 
-                    type="text" 
-                    id="req-jenis-berkas-lainnya" 
-                    placeholder="Contoh: Surat Rekomendasi Beasiswa"
-                >
+                <input type="text" id="req-jenis-berkas-lainnya" placeholder="Contoh: Surat Rekomendasi Beasiswa">
             </div>
 
             <button type="submit" class="btn-submit">Kirim Permohonan Informasi Status Layanan</button>
@@ -875,13 +879,12 @@
 
     <!-- MENU 5: Lacak Status Berkas & Janji Temu -->
     <div id="lacak-berkas" class="content-section">
-        <!-- Sub-menu Navigasi Pengguna & Admin -->
         <div class="sub-tab-container">
             <button class="sub-tab-btn active" id="btn-sub-user" onclick="switchSubTab('user')">Lacak Status (Pengguna)</button>
             <button class="sub-tab-btn" id="btn-sub-admin" onclick="switchSubTab('admin')">Portal Admin TU</button>
         </div>
 
-        <!-- SUB TAB 1: PENGGUNA (PRIBADI) -->
+        <!-- SUB TAB 1: PENGGUNA -->
         <div id="sub-user-view">
             <div class="section-header">
                 <h2>Cek Status Resi Permohonan / Janji Temu</h2>
@@ -894,7 +897,6 @@
                 </div>
             </div>
 
-            <!-- Hasil Pencarian Pengguna -->
             <div id="user-result-box" style="display:none; margin-top:20px; padding:15px; background:#fff; border-radius:8px; border:1px solid #ddd;">
                 <h3 style="margin-top:0; color:#0b5072;">Hasil Pencarian Status Resi</h3>
                 <div id="user-result-content" class="table-container-mobile"></div>
@@ -903,7 +905,6 @@
 
         <!-- SUB TAB 2: PORTAL ADMIN TU -->
         <div id="sub-admin-view" style="display:none;">
-            <!-- Box Form Login Admin -->
             <div id="admin-login-box" style="background:#eaf5ee; padding: 20px; border-radius: 8px; margin-bottom:20px; border:1px solid #0d6b52;">
                 <h3 style="margin-top:0; color:#0d6b52;">Login Khusus Admin TU</h3>
                 <p style="font-size:12px; margin-bottom:15px;">Hanya Administrator yang dapat merubah status berkas/janji temu dan mengunduh rekap data.</p>
@@ -919,14 +920,12 @@
                 <p id="login-status" style="font-size:12px; color:red; margin-top:10px;"></p>
             </div>
 
-            <!-- Panel Pengelolaan Admin -->
             <div id="admin-panel" style="display:none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                     <span style="color:green; font-weight:bold; font-size:14px;">✓ Anda Login Sebagai Admin</span>
                     <button onclick="logoutAdmin()" style="background:#e74c3c; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;">Logout Admin</button>
                 </div>
 
-                <!-- Sub Tab Navigasi Admin -->
                 <div class="sub-tab-container">
                     <button class="sub-tab-btn active" id="btn-admin-berkas" onclick="switchAdminTab('berkas')">Permohonan Berkas (REQ)</button>
                     <button class="sub-tab-btn" id="btn-admin-janji" onclick="switchAdminTab('janji')">Janji Temu (JNJ)</button>
@@ -951,9 +950,7 @@
                                     <th>Aksi Ubah Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-table-body">
-                                <!-- Data Masuk Lewat JS -->
-                            </tbody>
+                            <tbody id="admin-table-body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -971,16 +968,15 @@
                                     <th>ID Resi</th>
                                     <th>Nama</th>
                                     <th>No. HP</th>
-                                    <th>Kategori Layanan</th>
+                                    <th>Kategori</th>
+                                    <th>Maksud & Tujuan</th>
                                     <th>Tanggal & Waktu</th>
                                     <th>Status Janji</th>
-                                    <th>Keterangan / Alasan Ditolak</th>
+                                    <th>Keterangan Admin</th>
                                     <th>Aksi Ubah Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-janji-table-body">
-                                <!-- Data Masuk Lewat JS -->
-                            </tbody>
+                            <tbody id="admin-janji-table-body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -988,7 +984,7 @@
         </div>
     </div>
 
-    <!-- MENU 6: Suara Kita (Saran/Keluhan) -->
+    <!-- MENU 6: Suara Kita -->
     <div id="suara-kita" class="content-section">
         <div class="section-header">
             <h2>Kritik, Saran & Keluhan (Suara Kita)</h2>
@@ -1026,9 +1022,7 @@
                             <th>Isi Pesan / Keluhan</th>
                         </tr>
                     </thead>
-                    <tbody id="suara-table-body">
-                        <!-- Data Masuk Lewat JS -->
-                    </tbody>
+                    <tbody id="suara-table-body"></tbody>
                 </table>
             </div>
         </div>
@@ -1037,7 +1031,6 @@
 </div>
 
 <script>
-    // LINK WEB APP GOOGLE APPS SCRIPT ANDA
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3Y8NJUHHkcOQD4GOnhPLVZYWD1iAC_ABlW0k666ryaTIrWR5WHGD9lJqlhKBMw-SS/exec";
 
     let database = [];
@@ -1045,7 +1038,6 @@
     let dbSuara = [];
     let isAdminLoggedIn = false;
 
-    // Load data real-time dari Google Sheets saat halaman dimuat
     window.onload = function() {
         loadDataFromCloud();
     };
@@ -1138,14 +1130,21 @@
         }
     }
 
-    // Submit Janji Temu ke Google Sheets
+    // Submit Janji Temu
     function submitJanjiTemu(event, kategoriLayanan) {
         event.preventDefault();
         let form = event.target;
         let nama = form.querySelector('.jnj-nama').value;
         let hp = form.querySelector('.jnj-hp').value;
+        let maksud = form.querySelector('.jnj-maksud').value;
         let tanggal = form.querySelector('.jnj-tanggal').value;
         let waktu = form.querySelector('.jnj-waktu').value;
+
+        // Peringatan jika memilih waktu jam istirahat
+        if (waktu >= "12:00" && waktu <= "13:30") {
+            alert("Peringatan: Jam 12.00 - 13.30 WIB adalah jam istirahat. Mohon pertimbangkan untuk memilih jam operasional lain.");
+        }
+
         let newId = "JNJ-" + Math.floor(100 + Math.random() * 900);
 
         let payload = {
@@ -1154,6 +1153,7 @@
             nama: nama,
             hp: hp,
             kategori: kategoriLayanan,
+            maksud: maksud,
             tanggal: tanggal,
             waktu: waktu,
             status: "Menunggu Konfirmasi",
@@ -1162,14 +1162,14 @@
 
         fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
             .then(() => {
-                alert("Pengajuan Janji Temu Berhasil!\n\nID Resi Janji Anda: " + newId + "\nNomor HP: " + hp + "\n\nData tersimpan secara Real-Time ke Server!");
+                alert("Pengajuan Janji Temu Berhasil!\n\nID Resi Janji Anda: " + newId + "\nNomor HP: " + hp + "\n\nData tersimpan secara Real-Time!");
                 form.reset();
                 loadDataFromCloud();
             })
             .catch(err => alert("Gagal mengirim data. Periksa koneksi internet Anda."));
     }
 
-    // Submit Permohonan Berkas ke Google Sheets
+    // Submit Permohonan Berkas
     function submitPermohonan(event) {
         event.preventDefault();
         let nama = document.getElementById('req-nama').value;
@@ -1191,7 +1191,7 @@
 
         fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
             .then(() => {
-                alert("Permohonan Berhasil Dikirim!\n\nID Resi Anda: " + newId + "\nNomor HP: " + hp + "\n\nData tersimpan secara Real-Time ke Server!");
+                alert("Permohonan Berhasil Dikirim!\n\nID Resi Anda: " + newId + "\nNomor HP: " + hp + "\n\nData tersimpan secara Real-Time!");
                 event.target.reset();
                 toggleSuratLainnya();
                 loadDataFromCloud();
@@ -1199,7 +1199,7 @@
             .catch(err => alert("Gagal mengirim data. Periksa koneksi internet Anda."));
     }
 
-    // Submit Suara Kita ke Google Sheets
+    // Submit Suara Kita
     function submitSuaraKita(event) {
         event.preventDefault();
         let nama = document.getElementById('suara-nama').value || "Anonim";
@@ -1244,10 +1244,10 @@
 
                 let html = "";
                 if(foundJanji.length > 0) {
-                    html += "<h4 style='color:#0b5072;'>Status Janji Temu:</h4><table><thead><tr><th>ID Resi</th><th>Nama</th><th>Layanan</th><th>Tgl & Waktu</th><th>Status Janji</th><th>Keterangan Admin</th></tr></thead><tbody>";
+                    html += "<h4 style='color:#0b5072;'>Status Janji Temu:</h4><table><thead><tr><th>ID Resi</th><th>Nama</th><th>Layanan</th><th>Maksud & Tujuan</th><th>Tgl & Waktu</th><th>Status</th><th>Keterangan Admin</th></tr></thead><tbody>";
                     foundJanji.forEach(item => {
                         let badgeClass = item.status.includes('Disetujui') ? 'bg-selesai' : (item.status.includes('Ditolak') ? 'bg-ditolak' : 'bg-pending');
-                        html += `<tr><td><strong>${item.id}</strong></td><td>${item.nama}</td><td>${item.kategori}</td><td>${item.tanggal} ${item.waktu}</td><td><span class="status-badge ${badgeClass}">${item.status}</span></td><td><small>${item.keterangan || '-'}</small></td></tr>`;
+                        html += `<tr><td><strong>${item.id}</strong></td><td>${item.nama}</td><td>${item.kategori}</td><td>${item.maksud || '-'}</td><td>${item.tanggal} ${item.waktu}</td><td><span class="status-badge ${badgeClass}">${item.status}</span></td><td><small>${item.keterangan || '-'}</small></td></tr>`;
                     });
                     html += "</tbody></table><br>";
                 }
@@ -1325,6 +1325,7 @@
                 <td>${item.nama}</td>
                 <td>${item.hp}</td>
                 <td>${item.kategori}</td>
+                <td>${item.maksud || '-'}</td>
                 <td>${item.tanggal} ${item.waktu}</td>
                 <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
                 <td><input type="text" id="ket-${item.id}" value="${item.keterangan || ''}" placeholder="Keterangan/alasan..." style="width:90%;"></td>
@@ -1349,14 +1350,12 @@
         });
     }
 
-    // Update Status Berkas di Cloud oleh Admin
     function changeStatus(id, newStatus) {
         let payload = { action: "updateStatusPermohonan", id: id, status: newStatus };
         fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) })
             .then(() => loadDataFromCloud());
     }
 
-    // Update Status Janji Temu di Cloud oleh Admin
     function changeJanjiStatus(id, newStatus) {
         let ketInput = document.getElementById(`ket-${id}`).value;
         if (newStatus.includes('Ditolak') && !ketInput) {
