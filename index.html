@@ -527,16 +527,12 @@
     <!-- Top Header Navbar Brand -->
     <div class="top-brand">
         <div class="brand-left-group">
-            <!-- IKON SEKUNTUM BARU: Kuncup Bunga Mekar & Dokumen Digital -->
             <div class="brand-icon-box" title="Kelopak SEKUNTUM di atas Dokumen Digital">
                 <svg viewBox="0 0 24 24">
-                    <!-- Dokumen/Buku di bagian bawah -->
                     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="#38bdf8" />
                     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="#38bdf8" />
-                    <!-- Kelopak Bunga/Kuncup Mekar (Filosofi SEKUNTUM) -->
                     <path d="M12 7c-2-2.5-4.5-2-4.5 1s2.5 4 4.5 6c2-2 4.5-3 4.5-6s-2.5-3.5-4.5-1z" fill="rgba(56,189,248,0.25)" stroke="#38bdf8" />
                     <path d="M12 14v-4" stroke="#38bdf8" />
-                    <!-- Sparkle / Cahaya Mekar -->
                     <circle cx="12" cy="5" r="1" fill="#ffeb3b" stroke="none" />
                 </svg>
             </div>
@@ -568,20 +564,21 @@
     <!-- Tombol Menu Utama Navigation -->
     <div class="menu-grid">
         <button class="menu-btn btn-menu-1 active" onclick="openMenu('layanan-murid')">
-            <i class="fas fa-user-graduate"></i>
+            <i class="fas fa-user-tie"></i>
             <span>1. Layanan Murid</span>
         </button>
         <button class="menu-btn btn-menu-2" onclick="openMenu('layanan-alumni')">
-            <i class="fas fa-user-tie"></i>
+            <i class="fas fa-user-graduate"></i>
             <span>2. Layanan Alumni</span>
         </button>
         <button class="menu-btn btn-menu-3" onclick="openMenu('layanan-pendidik')">
             <i class="fas fa-chalkboard-teacher"></i>
             <span>3. Layanan Guru & Tendik</span>
         </button>
+        <!-- NAMA MENU 4 TELAH DIPERBARUI -->
         <button class="menu-btn btn-menu-4" onclick="openMenu('ajukan-layanan')">
             <i class="fas fa-file-signature"></i>
-            <span>4. Ajukan Informasi Status Layanan</span>
+            <span>4. Ajukan Permohonan Status Berkas</span>
         </button>
         <button class="menu-btn btn-menu-5" onclick="openMenu('lacak-berkas')">
             <i class="fas fa-search-location"></i>
@@ -815,10 +812,10 @@
         </div>
     </div>
 
-    <!-- MENU 4: Ajukan Informasi Status Layanan -->
+    <!-- MENU 4: Ajukan Permohonan Status Berkas -->
     <div id="ajukan-layanan" class="content-section">
         <div class="section-header">
-            <h2>Form Permohonan Informasi Status Layanan</h2>
+            <h2>Form Permohonan Status Berkas</h2>
         </div>
 
         <form onsubmit="submitPermohonan(event)">
@@ -873,7 +870,7 @@
                 <input type="text" id="req-jenis-berkas-lainnya" placeholder="Contoh: Surat Rekomendasi Beasiswa">
             </div>
 
-            <button type="submit" class="btn-submit">Kirim Permohonan Informasi Status Layanan</button>
+            <button type="submit" class="btn-submit">Kirim Permohonan Status Berkas</button>
         </form>
     </div>
 
@@ -1039,8 +1036,18 @@
     let isAdminLoggedIn = false;
 
     window.onload = function() {
+        checkAdminSession();
         loadDataFromCloud();
     };
+
+    function checkAdminSession() {
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            isAdminLoggedIn = true;
+            document.getElementById('admin-login-box').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('suara-admin-box').style.display = 'block';
+        }
+    }
 
     function loadDataFromCloud() {
         fetch(SCRIPT_URL)
@@ -1140,7 +1147,6 @@
         let tanggal = form.querySelector('.jnj-tanggal').value;
         let waktu = form.querySelector('.jnj-waktu').value;
 
-        // Peringatan jika memilih waktu jam istirahat
         if (waktu >= "12:00" && waktu <= "13:30") {
             alert("Peringatan: Jam 12.00 - 13.30 WIB adalah jam istirahat. Mohon pertimbangkan untuk memilih jam operasional lain.");
         }
@@ -1273,6 +1279,7 @@
 
         if(u === 'admintusmk' && p === 'hanyaadmin') {
             isAdminLoggedIn = true;
+            localStorage.setItem('adminLoggedIn', 'true');
             document.getElementById('admin-login-box').style.display = 'none';
             document.getElementById('admin-panel').style.display = 'block';
             document.getElementById('suara-admin-box').style.display = 'block';
@@ -1283,11 +1290,16 @@
         }
     }
 
+    // Logout Admin
     function logoutAdmin() {
         isAdminLoggedIn = false;
+        localStorage.removeItem('adminLoggedIn');
         document.getElementById('admin-login-box').style.display = 'block';
         document.getElementById('admin-panel').style.display = 'none';
         document.getElementById('suara-admin-box').style.display = 'none';
+        document.getElementById('admin-user').value = '';
+        document.getElementById('admin-pass').value = '';
+        document.getElementById('login-status').innerText = '';
     }
 
     function renderAdminTable() {
