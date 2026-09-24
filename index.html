@@ -416,6 +416,145 @@
         .bg-siap { background-color: #9b59b6; }
         .bg-selesai { background-color: #2ecc71; }
         .bg-ditolak { background-color: #e74c3c; }
+
+        /* ========================================================
+           ATURAN KHUSUS HANDPHONE / MOBILE (LAYAR <= 768px)
+           Komputer/Desktop TIDAK akan terpengaruh sama sekali!
+           ======================================================== */
+        @media screen and (max-width: 768px) {
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            /* Navbar Brand di HP */
+            .top-brand {
+                padding: 12px 15px;
+            }
+
+            .brand-left-group {
+                gap: 10px;
+            }
+
+            .brand-icon-box {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand-icon-box svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .brand-title-row {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .brand-title-row h1 {
+                font-size: 16px;
+            }
+
+            .brand-badge {
+                font-size: 10px;
+                padding: 2px 6px;
+            }
+
+            .brand-subtitle {
+                font-size: 11px;
+            }
+
+            /* Header Banner di HP */
+            .header-banner {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding: 20px 15px;
+                gap: 15px;
+            }
+
+            .banner-text {
+                max-width: 100%;
+            }
+
+            .header-banner h2 {
+                font-size: 18px;
+            }
+
+            .header-banner p {
+                font-size: 12px;
+            }
+
+            .banner-logo-box img {
+                width: 65px;
+            }
+
+            /* Menu Navigasi 1 Kolom Rapi di HP */
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .menu-btn {
+                padding: 11px;
+                font-size: 12.5px;
+                width: 100%;
+            }
+
+            .content-section {
+                padding: 15px;
+            }
+
+            .section-header h2 {
+                font-size: 15px;
+            }
+
+            .janji-link-header {
+                font-size: 12px;
+            }
+
+            /* Sub Tab (User/Admin) di HP */
+            .sub-tab-container {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .sub-tab-btn {
+                width: 100%;
+            }
+
+            /* Form Pencarian Lacak Berkas di HP */
+            .search-box-group {
+                flex-direction: column !important;
+            }
+
+            .search-box-group button {
+                width: 100% !important;
+            }
+
+            /* Agar Tabel Bisa Di-scroll Horizontal Tanpa Merusak Tampilan HP */
+            .table-container-mobile {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -749,7 +888,7 @@
             </div>
             <div class="form-group">
                 <label>Masukkan ID Resi (REQ-xxx / JNJ-xxx) ATAU Nomor HP Saat Mengajukan:</label>
-                <div style="display:flex; gap:10px;">
+                <div class="search-box-group" style="display:flex; gap:10px;">
                     <input type="text" id="search-keyword" placeholder="Contoh: JNJ-123, REQ-123, atau 081234567890">
                     <button onclick="searchStatusUser()" style="background:#0b5072; color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; font-weight:bold;">Cari</button>
                 </div>
@@ -758,7 +897,7 @@
             <!-- Hasil Pencarian Pengguna -->
             <div id="user-result-box" style="display:none; margin-top:20px; padding:15px; background:#fff; border-radius:8px; border:1px solid #ddd;">
                 <h3 style="margin-top:0; color:#0b5072;">Hasil Pencarian Status Resi</h3>
-                <div id="user-result-content"></div>
+                <div id="user-result-content" class="table-container-mobile"></div>
             </div>
         </div>
 
@@ -799,7 +938,7 @@
                         <h2>Pengelolaan Status Berkas (Menu 4)</h2>
                         <button class="btn-download" onclick="exportData('Permohonan_Layanan')">Unduh Rekap Excel</button>
                     </div>
-                    <div style="overflow-x:auto;">
+                    <div class="table-container-mobile">
                         <table>
                             <thead>
                                 <tr>
@@ -825,7 +964,7 @@
                         <h2>Pengelolaan Janji Temu (Menu 1, 2, 3)</h2>
                         <button class="btn-download" onclick="exportJanjiData('Janji_Temu_Layanan')">Unduh Rekap Excel Janji Temu</button>
                     </div>
-                    <div style="overflow-x:auto;">
+                    <div class="table-container-mobile">
                         <table>
                             <thead>
                                 <tr>
@@ -878,18 +1017,20 @@
                 <h3 style="color:#0b5072; margin:0;">Rekap Masukan & Keluhan Masyarakat</h3>
                 <button class="btn-download" onclick="exportSuaraKita()">Unduh Rekap Excel Suara Kita</button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Pengirim</th>
-                        <th>Isi Pesan / Keluhan</th>
-                    </tr>
-                </thead>
-                <tbody id="suara-table-body">
-                    <!-- Data Masuk Lewat JS -->
-                </tbody>
-            </table>
+            <div class="table-container-mobile">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Pengirim</th>
+                            <th>Isi Pesan / Keluhan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suara-table-body">
+                        <!-- Data Masuk Lewat JS -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
